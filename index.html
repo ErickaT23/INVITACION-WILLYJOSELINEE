@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wilson & Joselinee</title>
+    <meta name="description" content="Llegó el momento de unir nuestro amor por siempre">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Nos Casamos">
+    <meta property="og:image" content="">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="preload" href="/images/sobre-arriba.png" as="image">
+    <link rel="preload" href="/images/sobre-abajo.jpg" as="image">
+    <link rel="preload" href="/images/play.png" as="image">
+    <link rel="preload" href="/images/fc.jpg" as="image">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    <script defer src="https://cdn.lordicon.com/lordicon.js"></script>
+    <script src="https://cdn.lordicon.com/xdjxvujz.js"></script>
+    <script src="https://kit.fontawesome.com/3c219a0781.js" crossorigin="anonymous"></script>
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" as="style">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head> 
+<body>
+    <div style="position: absolute; width: 0; height: 0; overflow: hidden;">
+        <i class="fas fa-play"></i>
+        <i class="fas fa-pause"></i>
+    </div>    
+<div class="main-content">
+    <!-- Sección de sobre -->
+    <div id="envelope">
+        <div id="envelope-top"></div>
+        <div id="seal">
+            <h2 class="fade-in-element">W | N</h2>
+        </div>
+        <div class="guest-card">
+            <div class="guest-line" id="guestCardName">Carlos Lopez</div>
+            <div class="guest-sub">Hemos reservado</div>
+            <div class="guest-seats">
+                <span id="guestCardSeats">2</span> <span id="guestCardSeatsTxt">lugares</span> en su honor
+            </div>
+        </div>
+        <div id="envelope-bottom"></div>
+    </div>
+    <!-- Sección de invitación -->
+    <div id="invitation" class="hidden">
+          <div class="photo-section fade-in-element">
+             <div class="photo-container">
+                 <img src="/images/fp.jpg" alt="Foto de la pareja" class="photo fade-in-element fade-in-element" loading="lazy">
+             </div>
+                <div class="photo-text">
+                  <h1>Wilson & Joselinee</h1>
+                  <h2>16 . 01 . 2027</h2>
+               </div>
+          </div> 
+        <div class="contenedor-play hidden">
+            <h1 class="texto-play fade-in-element fade-in-element">Hasta mi final - Il Divo</h1>
+            <div id="playPauseButton" class="icono-contenedor fade-in-element fade-in-element">
+                <i id="iconoPlayPause" class="fas fa-play" aria-hidden="true"></i>
+            </div>
+            <audio id="audioPlayer" src="/music/hastamifinal.mp3" loop></audio>
+            <div class="progress-container">
+                <input id="progress-bar" type="range" value="0" min="0" max="100" step="1">
+                <div class="time-display">
+                    <span id="current-time">0:00</span> / <span id="duration-time">0:00</span>
+                </div>
+            </div>            
+        </div>               
+        <section class="section historia-section" id="historia">
+            <div class="historia-fondo"></div>
+            <div class="historia-overlay"></div>
+            <div class="section-inner">
+                <h2 class="historia-titulo">
+                    <span class="historia-palabra">
+                        <span class="historia-inicial">N</span><span class="historia-resto">uestra</span>
+                    </span>
+                    <span class="historia-espacio"></span>
+                    <span class="historia-palabra">
+                        <span class="historia-inicial">H</span><span class="historia-resto">istoria</span>
+                    </span>
+                </h2>
+                <p class="historia-texto">
+                    Nos conocimos en la universidad, sin imaginar que Dios ya estaba escribiendo una historia mucho más grande de lo que podíamos imaginar.<br><br>
+                    Con el paso de los años, fuimos construyendo una amistad que se fortaleció y nos dimos cuenta de que aquel cariño había comenzado a transformarse en algo más especial que una amistad. Hemos compartido momentos, experiencias y etapas que nos hicieron descubrir que somos un gran equipo.<br><br>
+                    Nuestro camino ha estado guiado por la oración, la paciencia, la confianza y la fe, creyendo siempre que los planes de Dios para nuestras vidas van mucho más allá de lo que nosotros mismos podríamos imaginar.<br><br>
+                    Hoy, después de todos estos años, miramos atrás con el corazón lleno de gratitud, por aquella amistad que dio inicio a todo, por cada oración contestada, por cada etapa que nos hizo crecer y, sobre todo, por la fidelidad de Dios al permitirnos llegar hasta aquí.<br><br>
+                    Hoy comenzamos una nueva etapa, en la que nuestros propósitos se unen y en la que Dios nos invita a caminar juntos. Queremos seguir aprendiendo a elegirnos cada día, a crecer en Él, a acompañarnos en cada paso y a construir, de su mano, la vida que tenemos por delante, con la certeza de que este camino apenas comienza. Unimos nuestras vidas para formar un hogar donde Dios sea siempre el centro, nuestra guía y el fundamento de todo lo que vendrá.
+                </p>
+                <div class="historia-fotos">
+                    <div class="historia-foto">
+                        <span class="historia-pin"></span>
+                        <img src="images/G1.jpg" alt="Nuestra historia" loading="lazy">
+                    </div>
+                    <div class="historia-foto">
+                        <span class="historia-pin"></span>
+                        <img src="images/G2.jpg" alt="Nuestra historia" loading="lazy">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="parents-section fade-in-element" id="parents-blessing">
+            <div class="section-inner">
+                <h2 class="parents-title">Con la bendición de Dios y de nuestros padres</h2>
+                <div class="parents-grid">
+                    <div class="parents-card">
+                        <p class="parents-role">Padres del novio</p>
+                        <p class="parents-names">Papá &amp; Mamá</p>
+                    </div>
+                    <div class="parents-card">
+                        <p class="parents-role">Padres de la novia</p>
+                        <p class="parents-names">Papá &amp; Mamá</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+         <div class="content">
+            <section class="countdown-section fade-in-element" id="countdown">
+                <div class="countdown-overlay"></div>
+                <div class="countdown-inner">
+                <h2 class="countdown-title">
+                    <span class="historia-palabra">
+                        <span class="historia-inicial">S</span><span class="historia-resto">olo faltan</span>
+                    </span>
+                </h2>
+                <div class="count-row">
+                    <div class="count-item">
+                        <div class="flip" id="flipDays">
+                            <div class="top"><span class="digit">00</span></div>
+                            <div class="bottom"><span class="digit">00</span></div>
+                            <div class="top-flip"><span class="digit">00</span></div>
+                            <div class="bottom-flip"><span class="digit">00</span></div>
+                        </div>
+                        <div class="label">DÍAS</div>
+                    </div>
+                    <div class="count-item">
+                        <div class="flip" id="flipHours">
+                            <div class="top"><span class="digit">00</span></div>
+                            <div class="bottom"><span class="digit">00</span></div>
+                            <div class="top-flip"><span class="digit">00</span></div>
+                            <div class="bottom-flip"><span class="digit">00</span></div>
+                        </div>
+                        <div class="label">HORAS</div>
+                    </div>
+                    <div class="count-item">
+                        <div class="flip" id="flipMins">
+                            <div class="top"><span class="digit">00</span></div>
+                            <div class="bottom"><span class="digit">00</span></div>
+                            <div class="top-flip"><span class="digit">00</span></div>
+                            <div class="bottom-flip"><span class="digit">00</span></div>
+                        </div>
+                        <div class="label">MIN</div>
+                    </div>
+                    <div class="count-item">
+                        <div class="flip" id="flipSecs">
+                            <div class="top"><span class="digit">00</span></div>
+                            <div class="bottom"><span class="digit">00</span></div>
+                            <div class="top-flip"><span class="digit">00</span></div>
+                            <div class="bottom-flip"><span class="digit">00</span></div>
+                        </div>
+                        <div class="label">SEG</div>
+                    </div>
+                </div>
+                <div class="half-photo">
+                    <img src="/images/S1.jpg" alt="Foto pareja" loading="lazy">
+                </div>
+                </div>
+            </section>
+            <div class="event-section fade-in-element fade-in-element">
+                <div class="event-card">
+                    <div class="event-icon">
+                        <lord-icon src="https://cdn.lordicon.com/bencqunn.json" trigger="loop" stroke="light" colors="primary:#8B4D4D,secondary:#615934" style="width:110px;height:110px;"></lord-icon>
+                    </div>
+                    <h3 class="event-titulo">
+                        <span class="event-inicial">C</span><span class="event-resto">eremonia & Recepción</span>
+                    </h3>
+                    <p class="event-lugar">Jardin Hacienda Javier</p>
+                    <p class="event-time">4:00 PM</p>
+                    <p class="event-direccion">Ruta nacional 14 km 54, carretera a San Juan Alotenango.</p>
+                    <a href="https://maps.app.goo.gl/VWwnKJCrMKkNMWdW9?g_st=iw" target="_blank" rel="noreferrer" class="btn-location">Ver ubicación</a>
+                </div>
+            </div>
+            <div class="photo-full fade-in-element fade-in-element">
+                <img src="/images/S2.jpg" alt="Foto de la pareja" loading="lazy">
+            </div>
+            <div id="accountDetails" 
+                 style="
+                    display:none;
+                    position: fixed;
+                    top: 0; left: 0;
+                    width: 100%; height: 100%;
+                    background: rgba(0,0,0,0.6);
+                    backdrop-filter: blur(3px);
+                    z-index: 9999;
+                    justify-content: center;
+                    align-items: center;
+                 ">
+                <div style="
+                    background: white;
+                    padding: 25px;
+                    border-radius: 10px;
+                    text-align: center;
+                    max-width: 85%;
+                    margin: auto;
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                    font-size: 35px;
+                    line-height: 1.3;
+                ">
+                    <h1 style="font-size:45px; margin-bottom:20px; color:#5F6D4B; text-transform: capitalize;">Lluvia de Sobre</h1>
+                    <p>Su compañía es nuestro regalo más valioso.</p>
+                    <p>Si desean hacernos un presente, les agradeceríamos un regalo en efectivo.</p>
+                    <p>Dispondremos de un buzón de sobres en la recepción.</p>
+                    <button onclick="toggleDetails()"
+                        style="
+                            margin-top: 25px;
+                            padding: 10px 20px;
+                            font-size: 20px;
+                            border: none;
+                            border-radius: 5px;
+                            background: #8B9C74;
+                            color: white;
+                            cursor: pointer;
+                        ">
+                        Cerrar
+                    </button>
+                </div>
+            </div>
+            
+            <section class="dress fade-in-element" id="dress">
+                <h3>Código de Vestimenta</h3>
+                <p class="dress-strong">Formal</p>
+                <p class="dress-note">Código de vestimenta formal, dejamos reservado el tono blanco exclusivamente para la novia, el color terracota y azul para el cortejo.</p>
+                <div class="palette-block" aria-label="Paleta reservada">
+                    <p class="palette-title">Paleta reservada</p>
+                    <div class="palette-swatches">
+                        <div class="palette-item">
+                            <span class="palette-circle palette-circle-white" aria-hidden="true"></span>
+                            <span class="palette-label">Blanco</span>
+                        </div>
+                        <div class="palette-item">
+                            <span class="palette-circle palette-circle-terracotta" aria-hidden="true"></span>
+                            <span class="palette-label">Terracota</span>
+                        </div>
+                        <div class="palette-item">
+                            <span class="palette-circle palette-circle-blue" aria-hidden="true"></span>
+                            <span class="palette-label">Azul</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="gifts fade-in-element" id="gifts">
+                <div class="event-icon">
+                    <lord-icon src="https://cdn.lordicon.com/kezeezyg.json" trigger="loop" stroke="light" colors="primary:#8B4D4D,secondary:#615934" style="width:110px;height:110px;"></lord-icon>
+                </div>
+                <h3>Agradecimientos &amp; Obsequios</h3>
+                <p class="gifts-strong">Su compañía es nuestro regalo más valioso. Si desean hacernos un presente, les agradeceríamos un regalo en efectivo, dispondremos de un buzón de sobres en la recepción.</p>
+            </section>
+            <section class="nochild-section fade-in-element">
+                <div class="nochild-overlay"></div>
+                <div class="nochild-inner">
+                    <h2>A tomar en cuenta</h2>
+                    <p class="nochild-text">Llegar al menos 15 minutos antes del inicio del evento. Seguir el código de vestimenta especificado en la invitación. Confirmar su asistencia con un mes de anticipación, para la correcta organización del evento.</p>
+                </div>
+            </section>
+            <div class="gallery-section fade-in-element fade-in-element">
+                <h2>Galería de fotos</h2>
+
+                <!-- Modal de fotos -->
+                <div id="photo-modal" class="modal">
+                    <button type="button" class="close" aria-label="Cerrar galeria">&times;</button>
+                    <img class="modal-content" id="main-photo-modal" alt="modal">
+                </div>
+
+                <!-- Galería principal -->
+                <div class="gallery-main fade-in-element">
+                    <img id="main-photo" src="/images/G1.jpg" alt="Foto principal" onclick="changePhoto(this)" loading="lazy">
+                </div>
+
+                <!-- Miniaturas de la galería -->
+                <div class="gallery-thumbs fade-in-element">
+                    <img src="images/G1.jpg" alt="Foto 1" onclick="changePhoto(this)" loading="lazy">
+                    <img src="/images/G2.jpg" alt="Foto 2" onclick="changePhoto(this)" loading="lazy">
+                    <img src="/images/G3.jpg" alt="Foto 3" onclick="changePhoto(this)" loading="lazy">
+                    <img src="/images/G4.jpg" alt="Foto 4" onclick="changePhoto(this)" loading="lazy">
+                    <img src="/images/G5.jpg" alt="Foto 5" onclick="changePhoto(this)" loading="lazy">
+                    <img src="/images/G6.jpg" alt="Foto 6" onclick="changePhoto(this)" loading="lazy">
+                </div>
+            </div>
+            <section class="section media-share-section fade-in-element" id="media-share">
+                <div class="section-inner media-share-inner">
+                    <div class="event-icon">
+                        <lord-icon src="https://cdn.lordicon.com/wsaaegar.json" trigger="loop" stroke="light" colors="primary:#8B4D4D,secondary:#615934" style="width:110px;height:110px;"></lord-icon>
+                    </div>
+                    <h2 class="media-share-title">
+                        <span class="media-share-inicial">M</span><span class="media-share-resto">omentos</span>
+                        <span class="media-share-space"></span>
+                        <span class="media-share-inicial">I</span><span class="media-share-resto">nolvidables</span>
+                    </h2>
+
+                    <p class="media-share-text">Ayúdanos a inmortalizar este día tan especial, compartiendo con nosotros las fotos y videos que captures en nuestra boda.</p>
+
+                    <div class="media-share-qr-wrap">
+                        <img class="media-share-qr" src="images/QR.png" alt="QR para compartir fotos y videos">
+                    </div>
+
+                    <a href="https://drive.google.com/drive/folders/1J5BdMnnzngr9nSlnQcCM6lxJctKxLE6X?usp=drive_link" target="_blank" rel="noreferrer" class="btn-location btn-media-share">Subir fotos</a>
+                </div>
+            </section>
+            <section class="rsvp fade-in-element" id="rsvpSection">
+                <div class="rsvp-overlay"></div>
+                <div class="rsvp-inner">
+                    <div class="event-icon">
+                        <lord-icon src="https://cdn.lordicon.com/zaklfkjq.json" trigger="loop" stroke="light" colors="primary:#8B4D4D,secondary:#615934" style="width:110px;height:110px;"></lord-icon>
+                    </div>
+                    <h3>Confirma tu Asistencia</h3>
+                    <p class="rsvp-strong">
+                        Agradeceremos que nos indiques tu respuesta antes del 16 de diciembre. Si no podrás acompañarnos, háznoslo saber también.
+                    </p>
+
+                    <div class="rsvp-inline" id="rsvpInline">
+                        <label for="rsvpNombre" class="rsvp-label">Nombre</label>
+                        <input id="rsvpNombre" type="text" readonly>
+
+                        <p class="rsvp-label rsvp-choice-label">¿Asistirás?</p>
+                        <div class="rsvp-actions">
+                            <button id="btnRsvpSi" class="rsvp-btn rsvp-yes" type="button">Sí, es un gusto.</button>
+                            <button id="btnRsvpNo" class="rsvp-btn rsvp-no" type="button">No, lamentablemente no podré.</button>
+                        </div>
+
+                        <div id="rsvpGuestsWrap" class="rsvp-guests-wrap" style="display:none">
+                            <label for="rsvpGuests" class="rsvp-label">Número de invitados</label>
+                            <select id="rsvpGuests"></select>
+                        </div>
+
+                        <button id="btnConfirmarRsvp" type="button">Confirmar</button>
+                    </div>
+
+                    <div id="msgRsvp" class="rsvp-msg" style="display:none"></div>
+                </div>
+            </section>
+            <div class="photo-full fade-in-element fade-in-element">
+                <img src="/images/S3.jpg" alt="Foto de la pareja" loading="lazy">
+            </div>
+            <div class="banner-section fade-in-element fade-in-element1">
+                <p>El universo nos unió un día, y ahora queremos ser nosotros los que unamos nuestras vidas para siempre</p>
+            </div>
+            <footer class="fade-in-element fade-in-element">
+                <div class="social-icons">
+                    <a href="https://wa.me/50247657152" aria-label="Whatsapp"><i class="fab fa-whatsapp fade-in-element"></i></a>
+                    <a href="https://www.facebook.com/thetwodesign?mibextid=ZbWKwl" aria-label="Facebook"><i class="fab fa-facebook fade-in-element"></i></a>
+                    <a href="https://www.instagram.com/thetwodesign?igsh=M2k5eWF4dHl3czNv" aria-label="Instagram"><i class="fab fa-instagram fade-in-element"></i></a>
+                </div>
+                <div class="logo fade-in-element">
+                    <img src="/images/2.png" alt="Logo de la empresa">
+                </div>
+            </footer>
+        </div>
+    </div>
+</div>
+    <script type="module" src="/database.js" defer></script>
+    <script src="/script.js" defer></script>
+    <script type="module" src="/loads.js" defer></script>
+</body>
+</html>
