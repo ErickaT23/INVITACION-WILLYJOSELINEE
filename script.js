@@ -1,10 +1,8 @@
 document.addEventListener("DOMContentLoaded", function() {
     var audio = document.getElementById("audioPlayer");
+    var audioBubble = document.querySelector(".contenedor-play");
     var playPauseButton = document.getElementById("playPauseButton");
     var iconoPlayPause = document.getElementById("iconoPlayPause");
-    var progressBar = document.getElementById("progress-bar");
-    var currentTimeDisplay = document.getElementById("current-time");
-    var durationTimeDisplay = document.getElementById("duration-time");
     var rsvpNombre = document.getElementById("rsvpNombre");
     var rsvpGuestsWrap = document.getElementById("rsvpGuestsWrap");
     var rsvpGuests = document.getElementById("rsvpGuests");
@@ -27,27 +25,30 @@ document.addEventListener("DOMContentLoaded", function() {
         var invitation = document.getElementById("invitation");
         var guestCard = document.querySelector(".guest-card");
 
+        envelope.classList.add('is-opening');
         seal.style.opacity = '0';
         if (guestCard) {
             guestCard.style.opacity = '0';
         }
-       
-        envelopeTop.style.transform = 'translateY(-100vh)';
-        envelopeBottom.style.transform = 'translateY(100vh)';
       
         setTimeout(function() {
             envelope.classList.add('hidden');
             invitation.classList.remove('hidden');
+            if (audioBubble) {
+                audioBubble.classList.remove('hidden');
+                audioBubble.setAttribute('aria-hidden', 'false');
+            }
         }, 1000);
       
         audio.play().then(function() {
             iconoPlayPause.classList.remove("fa-play");
             iconoPlayPause.classList.add("fa-pause");
-            updateProgress(); 
+            playPauseButton.setAttribute("aria-label", "Pausar música");
         }).catch(function(error) {
             console.log('Playback failed: ', error);
             iconoPlayPause.classList.add("fa-play");
             iconoPlayPause.classList.remove("fa-pause");
+            playPauseButton.setAttribute("aria-label", "Reproducir música");
         });
       }
       
@@ -70,47 +71,46 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     function togglePlayPause() {
-        if (!audio || !iconoPlayPause) return;
+        if (!audio || !iconoPlayPause || !playPauseButton) return;
 
-        requestAnimationFrame(() => {
-            iconoPlayPause.classList.toggle("fa-play");
-            iconoPlayPause.classList.toggle("fa-pause");
-        });
+        if (audio.paused) {
+            audio.play().then(function() {
+                iconoPlayPause.classList.remove("fa-play");
+                iconoPlayPause.classList.add("fa-pause");
+                playPauseButton.setAttribute("aria-label", "Pausar música");
+            }).catch(console.error);
+            return;
+        }
 
-        setTimeout(() => {
-            if (audio.paused) {
-                audio.play().catch(console.error);
-            } else {
-                audio.pause();
-            }
-        }, 50);
+        audio.pause();
+        iconoPlayPause.classList.add("fa-play");
+        iconoPlayPause.classList.remove("fa-pause");
+        playPauseButton.setAttribute("aria-label", "Reproducir música");
     }
 
-    function updateProgress() {
-        audio.addEventListener("timeupdate", function() {
-            var progress = (audio.currentTime / audio.duration) * 100;
-            progressBar.value = progress;
-
-            var currentMinutes = Math.floor(audio.currentTime / 60);
-            var currentSeconds = Math.floor(audio.currentTime % 60);
-            currentTimeDisplay.textContent = `${currentMinutes}:${currentSeconds < 10 ? '0' + currentSeconds : currentSeconds}`;
-
-            if (!isNaN(audio.duration)) {
-                var durationMinutes = Math.floor(audio.duration / 60);
-                var durationSeconds = Math.floor(audio.duration % 60);
-                durationTimeDisplay.textContent = `${durationMinutes}:${durationSeconds < 10 ? '0' + durationSeconds : durationSeconds}`;
-            }
+    if (playPauseButton) {
+        playPauseButton.addEventListener("click", function() {
+            togglePlayPause();
         });
     }
 
-    progressBar.addEventListener("input", function() {
-        var newTime = (progressBar.value / 100) * audio.duration;
-        audio.currentTime = newTime;
-    });
+    if (audioBubble) {
+        var ticking = false;
 
-    playPauseButton.addEventListener("click", function() {
-        togglePlayPause();
-    });
+        function updateBubbleOffset() {
+            var bubbleOffset = Math.max(-12, Math.min(12, window.scrollY * 0.05));
+            audioBubble.style.setProperty("--sound-bubble-offset", bubbleOffset + "px");
+            ticking = false;
+        }
+
+        updateBubbleOffset();
+
+        window.addEventListener("scroll", function() {
+            if (ticking) return;
+            ticking = true;
+            requestAnimationFrame(updateBubbleOffset);
+        }, { passive: true });
+    }
 
     let rsvpAnswer = null;
 
@@ -293,11 +293,6 @@ document.addEventListener("DOMContentLoaded", function() {
         setTimeout(() => {
             photoModal.classList.remove('is-closing');
         }, 280);
-    }
-
-    window.toggleDetails = function() {
-        var details = document.getElementById("accountDetails");
-        details.style.display = (details.style.display === "none" || details.style.display === "") ? "block" : "none";
     }
 
     window.submitWish = submitWish;

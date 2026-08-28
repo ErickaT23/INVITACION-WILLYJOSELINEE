@@ -1,8 +1,8 @@
 const guests = [
-    { id: "1", name: "Andrea Lopez", passes: 1, gender: "femenino" },
-    { id: "2", name: "Carlos Mendez", passes: 1, gender: "masculino" },
+    { id: "1", name: "Andrea López", passes: 1, gender: "femenino" },
+    { id: "2", name: "Carlos Méndez", passes: 1, gender: "masculino" },
     { id: "3", name: "Fam. Herrera", passes: 3, gender: "mixto" },
-    { id: "4", name: "Sofia Ramirez", passes: 2, gender: "femenino" },
+    { id: "4", name: "Sofía Ramírez", passes: 2, gender: "femenino" },
     { id: "5", name: "Luis y Fernanda", passes: 2, gender: "mixto" },
   ];  
 

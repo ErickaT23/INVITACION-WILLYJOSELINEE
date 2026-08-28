@@ -35,7 +35,7 @@
             <h2 class="fade-in-element">W | N</h2>
         </div>
         <div class="guest-card">
-            <div class="guest-line" id="guestCardName">Carlos Lopez</div>
+            <div class="guest-line" id="guestCardName">Carlos López</div>
             <div class="guest-sub">Hemos reservado</div>
             <div class="guest-seats">
                 <span id="guestCardSeats">2</span> <span id="guestCardSeatsTxt">lugares</span> en su honor
@@ -54,32 +54,17 @@
                   <h2>16 . 01 . 2027</h2>
                </div>
           </div> 
-        <div class="contenedor-play hidden">
-            <h1 class="texto-play fade-in-element fade-in-element">Hasta mi final - Il Divo</h1>
-            <div id="playPauseButton" class="icono-contenedor fade-in-element fade-in-element">
-                <i id="iconoPlayPause" class="fas fa-play" aria-hidden="true"></i>
-            </div>
+        <div class="contenedor-play hidden" aria-hidden="true">
+            <button id="playPauseButton" class="icono-contenedor" type="button" aria-label="Pausar música">
+                <i id="iconoPlayPause" class="fas fa-pause" aria-hidden="true"></i>
+            </button>
             <audio id="audioPlayer" src="/music/hastamifinal.mp3" loop></audio>
-            <div class="progress-container">
-                <input id="progress-bar" type="range" value="0" min="0" max="100" step="1">
-                <div class="time-display">
-                    <span id="current-time">0:00</span> / <span id="duration-time">0:00</span>
-                </div>
-            </div>            
-        </div>               
+        </div>
         <section class="section historia-section" id="historia">
             <div class="historia-fondo"></div>
             <div class="historia-overlay"></div>
             <div class="section-inner">
-                <h2 class="historia-titulo">
-                    <span class="historia-palabra">
-                        <span class="historia-inicial">N</span><span class="historia-resto">uestra</span>
-                    </span>
-                    <span class="historia-espacio"></span>
-                    <span class="historia-palabra">
-                        <span class="historia-inicial">H</span><span class="historia-resto">istoria</span>
-                    </span>
-                </h2>
+                <h1 class="historia-titulo">Nuestra Historia</h1>
                 <p class="historia-texto">
                     Nos conocimos en la universidad, sin imaginar que Dios ya estaba escribiendo una historia mucho más grande de lo que podíamos imaginar.<br><br>
                     Con el paso de los años, fuimos construyendo una amistad que se fortaleció y nos dimos cuenta de que aquel cariño había comenzado a transformarse en algo más especial que una amistad. Hemos compartido momentos, experiencias y etapas que nos hicieron descubrir que somos un gran equipo.<br><br>
@@ -118,11 +103,7 @@
             <section class="countdown-section fade-in-element" id="countdown">
                 <div class="countdown-overlay"></div>
                 <div class="countdown-inner">
-                <h2 class="countdown-title">
-                    <span class="historia-palabra">
-                        <span class="historia-inicial">S</span><span class="historia-resto">olo faltan</span>
-                    </span>
-                </h2>
+                <h1 class="countdown-title">Solo faltan</h1>
                 <div class="count-row">
                     <div class="count-item">
                         <div class="flip" id="flipDays">
@@ -140,7 +121,7 @@
                             <div class="top-flip"><span class="digit">00</span></div>
                             <div class="bottom-flip"><span class="digit">00</span></div>
                         </div>
-                        <div class="label">HORAS</div>
+                        <div class="label">HRS</div>
                     </div>
                     <div class="count-item">
                         <div class="flip" id="flipMins">
@@ -174,7 +155,7 @@
                     <h3 class="event-titulo">
                         <span class="event-inicial">C</span><span class="event-resto">eremonia & Recepción</span>
                     </h3>
-                    <p class="event-lugar">Jardin Hacienda Javier</p>
+                    <p class="event-lugar">Jardín Hacienda Javier</p>
                     <p class="event-time">4:00 PM</p>
                     <p class="event-direccion">Ruta nacional 14 km 54, carretera a San Juan Alotenango.</p>
                     <a href="https://maps.app.goo.gl/VWwnKJCrMKkNMWdW9?g_st=iw" target="_blank" rel="noreferrer" class="btn-location">Ver ubicación</a>
@@ -183,53 +164,10 @@
             <div class="photo-full fade-in-element fade-in-element">
                 <img src="/images/S2.jpg" alt="Foto de la pareja" loading="lazy">
             </div>
-            <div id="accountDetails" 
-                 style="
-                    display:none;
-                    position: fixed;
-                    top: 0; left: 0;
-                    width: 100%; height: 100%;
-                    background: rgba(0,0,0,0.6);
-                    backdrop-filter: blur(3px);
-                    z-index: 9999;
-                    justify-content: center;
-                    align-items: center;
-                 ">
-                <div style="
-                    background: white;
-                    padding: 25px;
-                    border-radius: 10px;
-                    text-align: center;
-                    max-width: 85%;
-                    margin: auto;
-                    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-                    font-size: 35px;
-                    line-height: 1.3;
-                ">
-                    <h1 style="font-size:45px; margin-bottom:20px; color:#5F6D4B; text-transform: capitalize;">Lluvia de Sobre</h1>
-                    <p>Su compañía es nuestro regalo más valioso.</p>
-                    <p>Si desean hacernos un presente, les agradeceríamos un regalo en efectivo.</p>
-                    <p>Dispondremos de un buzón de sobres en la recepción.</p>
-                    <button onclick="toggleDetails()"
-                        style="
-                            margin-top: 25px;
-                            padding: 10px 20px;
-                            font-size: 20px;
-                            border: none;
-                            border-radius: 5px;
-                            background: #8B9C74;
-                            color: white;
-                            cursor: pointer;
-                        ">
-                        Cerrar
-                    </button>
-                </div>
-            </div>
-            
             <section class="dress fade-in-element" id="dress">
                 <h3>Código de Vestimenta</h3>
                 <p class="dress-strong">Formal</p>
-                <p class="dress-note">Código de vestimenta formal, dejamos reservado el tono blanco exclusivamente para la novia, el color terracota y azul para el cortejo.</p>
+                <p class="dress-note">Código de vestimenta formal. Hemos reservado el tono blanco exclusivamente para la novia, y los colores terracota y azul para el cortejo.</p>
                 <div class="palette-block" aria-label="Paleta reservada">
                     <p class="palette-title">Paleta reservada</p>
                     <div class="palette-swatches">
@@ -253,13 +191,13 @@
                     <lord-icon src="https://cdn.lordicon.com/kezeezyg.json" trigger="loop" stroke="light" colors="primary:#8B4D4D,secondary:#615934" style="width:110px;height:110px;"></lord-icon>
                 </div>
                 <h3>Agradecimientos &amp; Obsequios</h3>
-                <p class="gifts-strong">Su compañía es nuestro regalo más valioso. Si desean hacernos un presente, les agradeceríamos un regalo en efectivo, dispondremos de un buzón de sobres en la recepción.</p>
+                <p class="gifts-strong">Su compañía es nuestro regalo más valioso. Si desean hacernos un presente, les agradeceríamos un regalo en efectivo. Dispondremos de un buzón de sobres en la recepción.</p>
             </section>
             <section class="nochild-section fade-in-element">
                 <div class="nochild-overlay"></div>
                 <div class="nochild-inner">
                     <h2>A tomar en cuenta</h2>
-                    <p class="nochild-text">Llegar al menos 15 minutos antes del inicio del evento. Seguir el código de vestimenta especificado en la invitación. Confirmar su asistencia con un mes de anticipación, para la correcta organización del evento.</p>
+                    <p class="nochild-text">Llega al menos 15 minutos antes del inicio del evento. Sigue el código de vestimenta especificado en la invitación. Confirma tu asistencia con un mes de anticipación para la correcta organización del evento.</p>
                 </div>
             </section>
             <div class="gallery-section fade-in-element fade-in-element">
@@ -267,8 +205,8 @@
 
                 <!-- Modal de fotos -->
                 <div id="photo-modal" class="modal">
-                    <button type="button" class="close" aria-label="Cerrar galeria">&times;</button>
-                    <img class="modal-content" id="main-photo-modal" alt="modal">
+                    <button type="button" class="close" aria-label="Cerrar galería">&times;</button>
+                    <img class="modal-content" id="main-photo-modal" alt="Foto ampliada de la galería">
                 </div>
 
                 <!-- Galería principal -->
@@ -312,7 +250,7 @@
                     <div class="event-icon">
                         <lord-icon src="https://cdn.lordicon.com/zaklfkjq.json" trigger="loop" stroke="light" colors="primary:#8B4D4D,secondary:#615934" style="width:110px;height:110px;"></lord-icon>
                     </div>
-                    <h3>Confirma tu Asistencia</h3>
+                    <h3>Confirma tu asistencia</h3>
                     <p class="rsvp-strong">
                         Agradeceremos que nos indiques tu respuesta antes del 16 de diciembre. Si no podrás acompañarnos, háznoslo saber también.
                     </p>
@@ -346,7 +284,7 @@
             </div>
             <footer class="fade-in-element fade-in-element">
                 <div class="social-icons">
-                    <a href="https://wa.me/50247657152" aria-label="Whatsapp"><i class="fab fa-whatsapp fade-in-element"></i></a>
+                    <a href="https://wa.me/50247657152" aria-label="WhatsApp"><i class="fab fa-whatsapp fade-in-element"></i></a>
                     <a href="https://www.facebook.com/thetwodesign?mibextid=ZbWKwl" aria-label="Facebook"><i class="fab fa-facebook fade-in-element"></i></a>
                     <a href="https://www.instagram.com/thetwodesign?igsh=M2k5eWF4dHl3czNv" aria-label="Instagram"><i class="fab fa-instagram fade-in-element"></i></a>
                 </div>
