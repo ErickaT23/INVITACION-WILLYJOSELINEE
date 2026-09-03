@@ -12,12 +12,12 @@
     <link rel="preload" href="/images/sobre-arriba.png" as="image">
     <link rel="preload" href="/images/sobre-abajo.jpg" as="image">
     <link rel="preload" href="/images/play.png" as="image">
-    <link rel="preload" href="/images/fc.jpg" as="image">
+    <link rel="preload" href="/images/fp.jpg" as="image">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
     <script defer src="https://cdn.lordicon.com/lordicon.js"></script>
-    <script src="https://cdn.lordicon.com/xdjxvujz.js"></script>
+    <script defer src="https://cdn.lordicon.com/xdjxvujz.js"></script>
     <script src="https://kit.fontawesome.com/3c219a0781.js" crossorigin="anonymous"></script>
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" as="style">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
@@ -32,11 +32,11 @@
     <div id="envelope">
         <div id="envelope-top"></div>
         <div id="seal">
-            <h2 class="fade-in-element">W | N</h2>
+            <h2 class="fade-in-element">W | J</h2>
         </div>
         <div class="guest-card">
+            <div class="guest-sub" id="guestCardGreeting">Querido</div>
             <div class="guest-line" id="guestCardName">Carlos López</div>
-            <div class="guest-sub">Hemos reservado</div>
             <div class="guest-seats">
                 <span id="guestCardSeats">2</span> <span id="guestCardSeatsTxt">lugares</span> en su honor
             </div>
@@ -45,9 +45,9 @@
     </div>
     <!-- Sección de invitación -->
     <div id="invitation" class="hidden">
-          <div class="photo-section fade-in-element">
+          <div class="photo-section visible">
              <div class="photo-container">
-                 <img src="/images/fp.jpg" alt="Foto de la pareja" class="photo fade-in-element fade-in-element" loading="lazy">
+                 <img src="/images/fp.jpg" alt="Foto de la pareja" class="photo" loading="eager" fetchpriority="high" decoding="async">
              </div>
                 <div class="photo-text">
                   <h1>Wilson & Joselinee</h1>
@@ -89,12 +89,12 @@
                 <h2 class="parents-title">Con la bendición de Dios y de nuestros padres</h2>
                 <div class="parents-grid">
                     <div class="parents-card">
-                        <p class="parents-role">Padres del novio</p>
-                        <p class="parents-names">Papá &amp; Mamá</p>
+                        <p class="parents-role">Mamá del novio</p>
+                        <p class="parents-names">Lidia Corona</p>
                     </div>
                     <div class="parents-card">
                         <p class="parents-role">Padres de la novia</p>
-                        <p class="parents-names">Papá &amp; Mamá</p>
+                        <p class="parents-names">Pablo López y Nancy Vega</p>
                     </div>
                 </div>
             </div>
@@ -164,6 +164,84 @@
             <div class="photo-full fade-in-element fade-in-element">
                 <img src="/images/S2.jpg" alt="Foto de la pareja" loading="lazy">
             </div>
+            <section class="itinerary-section fade-in-element" id="itinerary">
+                <div class="itinerary-card event-card">
+                    <h3 class="event-titulo">Itinerario</h3>
+                    <div class="timeline-center" aria-label="Itinerario del evento">
+                        <div class="timeline-block left">
+                            <div class="timeline-content">
+                                <div class="icon-time">
+                                    <lord-icon src="https://cdn.lordicon.com/jozdrszj.json" trigger="loop" stroke="light" colors="primary:#8B4D4D,secondary:#615934" style="width:44px;height:44px;"></lord-icon>
+                                    <span class="time">3:50 PM</span>
+                                </div>
+                                <hr>
+                                <p class="event">Ingreso al jard&iacute;n</p>
+                            </div>
+                        </div>
+                        <div class="timeline-block right">
+                            <div class="timeline-content">
+                                <div class="icon-time">
+                                    <lord-icon src="https://cdn.lordicon.com/fshosubk.json" trigger="loop" stroke="light" colors="primary:#8B4D4D,secondary:#615934" style="width:44px;height:44px;"></lord-icon>
+                                    <span class="time">4:00 PM</span>
+                                </div>
+                                <hr>
+                                <p class="event">Inicio de ceremonia</p>
+                            </div>
+                        </div>
+                        <div class="timeline-block left">
+                            <div class="timeline-content">
+                                <div class="icon-time">
+                                    <lord-icon src="https://cdn.lordicon.com/howqzieu.json" trigger="loop" stroke="light" colors="primary:#8B4D4D,secondary:#615934" style="width:44px;height:44px;"></lord-icon>
+                                    <span class="time">4:50 PM</span>
+                                </div>
+                                <hr>
+                                <p class="event">Fin de ceremonia</p>
+                            </div>
+                        </div>
+                        <div class="timeline-block right">
+                            <div class="timeline-content">
+                                <div class="icon-time">
+                                    <lord-icon src="https://cdn.lordicon.com/awclahcy.json" trigger="loop" stroke="light" colors="primary:#8B4D4D,secondary:#615934" style="width:44px;height:44px;"></lord-icon>
+                                    <span class="time">5:00 PM</span>
+                                </div>
+                                <hr>
+                                <p class="event">Coctel y fotos</p>
+                            </div>
+                        </div>
+                        <div class="timeline-block left">
+                            <div class="timeline-content">
+                                <div class="icon-time">
+                                    <lord-icon src="https://cdn.lordicon.com/bencqunn.json" trigger="loop" stroke="light" colors="primary:#8B4D4D,secondary:#615934" style="width:44px;height:44px;"></lord-icon>
+                                    <span class="time">5:45 PM</span>
+                                </div>
+                                <hr>
+                                <p class="event">Entrada de los novios</p>
+                            </div>
+                        </div>
+                        <div class="timeline-block right">
+                            <div class="timeline-content">
+                                <div class="icon-time">
+                                    <lord-icon src="https://cdn.lordicon.com/uxkdjajd.json" trigger="loop" stroke="light" colors="primary:#8B4D4D,secondary:#615934" style="width:44px;height:44px;"></lord-icon>
+                                    <span class="time">6:30 PM</span>
+                                </div>
+                                <hr>
+                                <p class="event">Cena</p>
+                            </div>
+                        </div>
+                        <div class="timeline-block left">
+                            <div class="timeline-content">
+                                <div class="icon-time">
+                                    <lord-icon src="https://cdn.lordicon.com/twhuibcp.json" trigger="loop" stroke="light" colors="primary:#8B4D4D,secondary:#615934" style="width:44px;height:44px;"></lord-icon>
+                                    <span class="time">7:15 PM</span>
+                                </div>
+                                <hr>
+                                <p class="event">Postre</p>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="itinerary-note">Sujeto a cambios.</p>
+                </div>
+            </section>
             <section class="dress fade-in-element" id="dress">
                 <h3>Código de Vestimenta</h3>
                 <p class="dress-strong">Formal</p>
@@ -197,7 +275,11 @@
                 <div class="nochild-overlay"></div>
                 <div class="nochild-inner">
                     <h2>A tomar en cuenta</h2>
-                    <p class="nochild-text">Llega al menos 15 minutos antes del inicio del evento. Sigue el código de vestimenta especificado en la invitación. Confirma tu asistencia con un mes de anticipación para la correcta organización del evento.</p>
+                    <ul class="nochild-text">
+                        <li>Llega al menos 15 minutos antes del inicio del evento.</li>
+                        <li>Sigue el c&oacute;digo de vestimenta especificado en la invitaci&oacute;n.</li>
+                        <li>Confirma tu asistencia con un mes de anticipaci&oacute;n para la correcta organizaci&oacute;n del evento.</li>
+                    </ul>
                 </div>
             </section>
             <div class="gallery-section fade-in-element fade-in-element">
@@ -212,16 +294,6 @@
                 <!-- Galería principal -->
                 <div class="gallery-main fade-in-element">
                     <img id="main-photo" src="/images/G1.jpg" alt="Foto principal" onclick="changePhoto(this)" loading="lazy">
-                </div>
-
-                <!-- Miniaturas de la galería -->
-                <div class="gallery-thumbs fade-in-element">
-                    <img src="images/G1.jpg" alt="Foto 1" onclick="changePhoto(this)" loading="lazy">
-                    <img src="/images/G2.jpg" alt="Foto 2" onclick="changePhoto(this)" loading="lazy">
-                    <img src="/images/G3.jpg" alt="Foto 3" onclick="changePhoto(this)" loading="lazy">
-                    <img src="/images/G4.jpg" alt="Foto 4" onclick="changePhoto(this)" loading="lazy">
-                    <img src="/images/G5.jpg" alt="Foto 5" onclick="changePhoto(this)" loading="lazy">
-                    <img src="/images/G6.jpg" alt="Foto 6" onclick="changePhoto(this)" loading="lazy">
                 </div>
             </div>
             <section class="section media-share-section fade-in-element" id="media-share">
@@ -257,7 +329,10 @@
 
                     <div class="rsvp-inline" id="rsvpInline">
                         <label for="rsvpNombre" class="rsvp-label">Nombre</label>
-                        <input id="rsvpNombre" type="text" readonly>
+                        <div class="rsvp-name-row">
+                            <input id="rsvpNombre" type="text" readonly>
+                            <div id="rsvpPassesInfo" class="rsvp-passes-info">1 pase</div>
+                        </div>
 
                         <p class="rsvp-label rsvp-choice-label">¿Asistirás?</p>
                         <div class="rsvp-actions">

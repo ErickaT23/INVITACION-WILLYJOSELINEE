@@ -24,10 +24,12 @@ const guests = [
     const guestId = queryParams.id;
   
     const guest = guests.find(g => g.id === guestId);
+    const guestCardGreetingEl = document.getElementById("guestCardGreeting");
     const guestCardNameEl = document.getElementById("guestCardName");
     const guestCardSeatsEl = document.getElementById("guestCardSeats");
     const guestCardSeatsTxtEl = document.getElementById("guestCardSeatsTxt");
     const rsvpNombreEl = document.getElementById("rsvpNombre");
+    const rsvpPassesInfoEl = document.getElementById("rsvpPassesInfo");
     const rsvpGuestsEl = document.getElementById("rsvpGuests");
   
     if (guest) {
@@ -35,17 +37,20 @@ const guests = [
       window.currentGuest = guest;
   
       let invitText = "";
-  
+      let guestCardGreeting = "Querido";
+
       if (guest.passes === 1) {
         invitText = guest.gender === "femenino"
           ? `¡${guest.name}, está invitada!`
           : `¡${guest.name}, está invitado!`;
+        guestCardGreeting = guest.gender === "femenino" ? "Querida" : "Querido";
       } else {
         if (guest.gender === "femenino") {
           invitText = `¡${guest.name}, están invitadas!`;
         } else {
           invitText = `¡${guest.name}, están invitados!`;
         }
+        guestCardGreeting = "Queridos";
       }
   
       const guestNameEl = document.getElementById("guest-name");
@@ -53,10 +58,12 @@ const guests = [
 
       if (guestNameEl) guestNameEl.textContent = invitText;
       if (passesEl) passesEl.textContent = `${guest.passes} ${guest.passes === 1 ? "pase" : "pases"}`;
+      if (guestCardGreetingEl) guestCardGreetingEl.textContent = guestCardGreeting;
       if (guestCardNameEl) guestCardNameEl.textContent = guest.name;
       if (guestCardSeatsEl) guestCardSeatsEl.textContent = guest.passes;
       if (guestCardSeatsTxtEl) guestCardSeatsTxtEl.textContent = guest.passes === 1 ? "lugar" : "lugares";
       if (rsvpNombreEl) rsvpNombreEl.value = guest.name;
+      if (rsvpPassesInfoEl) rsvpPassesInfoEl.textContent = `${guest.passes} ${guest.passes === 1 ? "pase" : "pases"}`;
       if (rsvpGuestsEl) {
         rsvpGuestsEl.innerHTML = Array.from({ length: guest.passes }, (_, index) => {
           const value = index + 1;
@@ -69,10 +76,12 @@ const guests = [
       const guestNameEl = document.getElementById("guest-name");
       if (guestNameEl) guestNameEl.textContent = "¡Invitado no encontrado!";
 
+      if (guestCardGreetingEl) guestCardGreetingEl.textContent = "Querido";
       if (guestCardNameEl) guestCardNameEl.textContent = "Invitado especial";
       if (guestCardSeatsEl) guestCardSeatsEl.textContent = "1";
       if (guestCardSeatsTxtEl) guestCardSeatsTxtEl.textContent = "lugar";
       if (rsvpNombreEl) rsvpNombreEl.value = "Invitado especial";
+      if (rsvpPassesInfoEl) rsvpPassesInfoEl.textContent = "1 pase";
       if (rsvpGuestsEl) rsvpGuestsEl.innerHTML = '<option value="1">1</option>';
 
       const section = document.querySelector(".invitation-info-section");

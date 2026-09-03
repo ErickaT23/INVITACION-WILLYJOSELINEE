@@ -12,6 +12,14 @@ document.addEventListener("DOMContentLoaded", function() {
     var msgRsvp = document.getElementById("msgRsvp");
 
     var modal = document.getElementById('photo-modal');
+    const galleryImages = [
+        "/images/G1.jpg",
+        "/images/G2.jpg",
+        "/images/G3.jpg",
+        "/images/G4.jpg",
+        "/images/G5.jpg",
+        "/images/G6.jpg"
+    ];
     var seal = document.getElementById("seal");
     let currentSlide = 0;   
     let isOpeningEnvelope = false;
@@ -94,7 +102,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    if (audioBubble) {
+    if (audioBubble && window.matchMedia("(pointer: fine)").matches) {
         var ticking = false;
 
         function updateBubbleOffset() {
@@ -217,6 +225,7 @@ document.addEventListener("DOMContentLoaded", function() {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
             }
         });
     }, { threshold: 0.1 });
@@ -228,12 +237,36 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     // Galería
-    document.querySelector('.close').addEventListener('click', closeModal);
-    document.getElementById('photo-modal').addEventListener('click', function(event) {
-        if (event.target === this) {
-            closeModal();
-        }
-    });
+    const closeButton = document.querySelector('.close');
+    const mainPhoto = document.getElementById('main-photo');
+    const mainPhotoModal = document.getElementById('main-photo-modal');
+
+    if (closeButton) {
+        closeButton.addEventListener('click', closeModal);
+    }
+
+    if (modal) {
+        modal.addEventListener('click', function(event) {
+            if (event.target === this) {
+                closeModal();
+            }
+        });
+    }
+
+    if (mainPhoto) {
+        setInterval(function() {
+            currentSlide = (currentSlide + 1) % galleryImages.length;
+            mainPhoto.style.opacity = '0.7';
+
+            setTimeout(function() {
+                mainPhoto.src = galleryImages[currentSlide];
+                if (mainPhotoModal && modal && modal.classList.contains('is-open')) {
+                    mainPhotoModal.src = galleryImages[currentSlide];
+                }
+                mainPhoto.style.opacity = '1';
+            }, 180);
+        }, 5000);
+    }
 
     // Optimización visual
     const title = document.querySelector(".title");
@@ -260,9 +293,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
     window.changePhoto = function(element) {
-        const mainPhoto = document.getElementById('main-photo');
-        const mainPhotoModal = document.getElementById('main-photo-modal');
-
         if (!mainPhoto || !mainPhotoModal) return;
 
         mainPhoto.src = element.src;

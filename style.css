@@ -17,7 +17,7 @@ body {
     padding: 0;
     font-family: 'Cormorant Garamond', serif;
     font-style: oblique;
-    background-color: transparent;
+    background: linear-gradient(rgba(247, 244, 239, 0.4), rgba(247, 244, 239, 0.4)), url('/images/textura.png') center / cover no-repeat fixed;
     overflow-x: hidden;
     justify-content: center;
     width: 100%;
@@ -113,6 +113,21 @@ html, body {
     background: transparent;
     text-align: center;
 }
+.historia-section,
+.parents-section,
+.countdown-section,
+.event-section,
+.dress,
+.gifts,
+.nochild-section,
+.gallery-section,
+.media-share-section,
+.rsvp,
+.banner-section,
+ footer {
+    content-visibility: auto;
+    contain-intrinsic-size: 800px;
+}
 .parents-grid {
     display: flex;
     justify-content: center;
@@ -125,7 +140,7 @@ html, body {
 .parents-names {
     margin: 0;
     font-family: 'Great Vibes', serif;
-    font-size: var(--title-font-size);
+    font-size: clamp(32px, 4.6vw, 52px);
     font-weight: 600;
     text-transform: none;
     background: var(--title-gradient);
@@ -141,7 +156,7 @@ html, body {
     box-sizing: border-box; /* Incluye padding y borde en el tamaño total */
 }
 #invitation {
-    background: linear-gradient(rgba(247, 244, 239, 0.4), rgba(247, 244, 239, 0.4)), url('/images/textura.png') center / cover no-repeat fixed;
+    background: transparent;
 }
 #envelope {
     position: fixed;
@@ -334,12 +349,27 @@ html, body {
     -webkit-background-clip: text;
     color: transparent;
 }
+#guestCardName {
+    font-size: 36px;
+    margin-top: 8px;
+}
 .guest-sub {
     margin-top: 10px;
     font-size: 24px;
     letter-spacing: 1px;
     text-transform: uppercase;
     color: #612C1C;
+}
+#guestCardGreeting {
+    font-size: 34px;
+    margin-top: -6px;
+    font-style: italic;
+    text-transform: none;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
+    background: linear-gradient(to right, #8f6a45, #b8842f, #c89b3c, #b8842f, #8f6a45);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 .guest-seats {
     margin-top: 8px;
@@ -371,7 +401,7 @@ html, body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Asegura que la sección ocupe toda la altura de la pantalla */
+    height: 88vh;
     text-align: center;
     box-sizing: border-box;
     overflow: hidden; /* Evita que el contenido se desborde */
@@ -386,8 +416,11 @@ html, body {
     width: 100%;
     height: 100%;
     object-fit: cover; /* Asegura que la imagen cubra completamente el contenedor */
-    transform: scale(1.01);
-    transition: transform 1.2s ease;
+    transform: none;
+    transition: none;
+}
+.photo {
+    object-position: center 22%;
 }
 /* Contenedor del texto, posicionado sobre la imagen */
 .photo-text {
@@ -400,7 +433,7 @@ html, body {
 .photo-text h1 {
     font-size: clamp(56px, 10vw, 150px);
     text-transform: capitalize;
-    margin-top: -800px;
+    margin-top: -620px;
     padding: 10px;
     letter-spacing: 1px;
 }
@@ -418,9 +451,6 @@ html, body {
     color: white;
     text-shadow: 0 0 10px rgba(32, 32, 32, 0.857);
     
-}
-.photo-section:hover .photo-container img {
-    transform: scale(1.04);
 }
 /* Estilo para la cuenta regresiva */
 .title h1{
@@ -665,6 +695,10 @@ html, body {
     padding: 55px 20px 30px;
     background: transparent;
 }
+.itinerary-section {
+    padding: 24px 20px 10px;
+    background: transparent;
+}
 .event-card {
     max-width: 760px;
     margin: 0 auto;
@@ -676,6 +710,11 @@ html, body {
     border: 1px solid rgba(152, 68, 22, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+.itinerary-card {
+    background: transparent;
+    box-shadow: none;
+    border: 0;
+}
 .event-icon {
     display: flex;
     justify-content: center;
@@ -684,6 +723,80 @@ html, body {
 .event-icon lord-icon {
     width: 110px;
     height: 110px;
+}
+.timeline-center {
+    content: "";
+    position: relative;
+    display: grid;
+    gap: 12px;
+    margin-top: 12px;
+}
+.timeline-center::before {
+    position: absolute;
+    content: "";
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 1px;
+    background: rgba(184, 132, 47, 0.45);
+    transform: translateX(-50%);
+}
+.timeline-block {
+    display: flex;
+    width: 50%;
+}
+.timeline-block.left {
+    justify-self: start;
+    justify-content: flex-end;
+    padding-right: 34px;
+}
+.timeline-block.right {
+    justify-self: end;
+    justify-content: flex-start;
+    padding-left: 34px;
+}
+.timeline-content {
+    width: min(100%, 260px);
+    text-align: center;
+}
+.icon-time {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: var(--color-terracotta);
+}
+.icon-time lord-icon {
+    width: 44px;
+    height: 44px;
+}
+.timeline-content hr {
+    margin: 6px auto;
+    width: 100%;
+    border: 0;
+    border-top: 1px solid rgba(184, 132, 47, 0.45);
+}
+.time,
+.event {
+    font-style: normal;
+    line-height: 1.2;
+}
+.time {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-terracotta);
+}
+.event {
+    margin: 0;
+    color: var(--color-brown);
+    font-size: 16px;
+}
+.itinerary-note {
+    margin: 12px 0 0;
+    text-align: center;
+    font-size: 14px;
+    font-style: italic;
+    color: var(--color-terracotta);
 }
 .event-titulo {
     margin: 0 0 18px;
@@ -832,10 +945,10 @@ html, body {
     background: #f8f7f2;
 }
 .palette-circle-terracotta {
-    background: #c97b63;
+    background: #97462d;
 }
 .palette-circle-blue {
-    background: #6d87a8;
+    background: #224168;
 }
 .palette-label {
 }
@@ -865,6 +978,11 @@ html, body {
     max-width: 760px;
     line-height: 1.5;
     color: var(--color-brown);
+    text-align: left;
+    padding-left: 1.2em;
+}
+.nochild-text li + li {
+    margin-top: 8px;
 }
 .media-share-section {
     padding: 60px 20px 50px;
@@ -970,6 +1088,28 @@ html, body {
 .rsvp-choice-label {
     margin-top: 24px;
 }
+.rsvp-name-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.rsvp-name-row #rsvpNombre {
+    flex: 1 1 auto;
+    text-align: center;
+}
+.rsvp-passes-info {
+    flex: 0 0 auto;
+    min-width: max-content;
+    padding: 12px 16px;
+    border: 1px solid rgba(95, 109, 75, 0.18);
+    border-radius: 16px;
+    background: white;
+    color: var(--color-terracotta);
+    font-size: var(--body-font-size);
+    font-family: 'Cormorant Garamond', serif;
+    font-style: normal;
+    line-height: 1;
+}
 .rsvp-actions {
     display: flex;
     gap: 14px;
@@ -1039,13 +1179,10 @@ html, body {
     height: 62px;
     border-radius: 999px;
     border: 2px solid rgba(152, 68, 22, 0.9);
-    background: rgba(255, 255, 255, 0.18);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: rgba(255, 250, 244, 0.92);
     box-shadow: 0 12px 30px rgba(97, 44, 28, 0.18);
     transform: translate3d(0, var(--sound-bubble-offset, 0px), 0);
     transition: transform 0.2s ease-out, opacity 0.3s ease, background 0.3s ease;
-    animation: bubblePulse 3.2s ease-in-out infinite;
 }
 .contenedor-play::before {
     content: "";
@@ -1054,6 +1191,12 @@ html, body {
     border-radius: inherit;
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.08));
     pointer-events: none;
+}
+@media (pointer: coarse) {
+    .contenedor-play {
+        transform: none;
+        transition: opacity 0.3s ease, background 0.3s ease;
+    }
 }
 .historia-section {
     position: relative;
@@ -1175,40 +1318,22 @@ html, body {
     text-align: center;
 }
 .gallery-main {
-    margin-bottom: 10px;
+    margin-bottom: 0;
     text-align: center;
 }
 .gallery-main img {
-    width: 850px;
-    height: 850px;
+    width: min(100%, 850px);
+    height: auto;
+    aspect-ratio: 2 / 3;
     object-fit: cover;
+    object-position: center;
+    border-radius: 22px;
     cursor: pointer;
-    transition: transform 0.35s ease, box-shadow 0.35s ease;
+    transition: transform 0.35s ease, box-shadow 0.35s ease, opacity 0.35s ease;
 }
 .gallery-main img:hover {
     transform: scale(1.05);
     box-shadow: 0 22px 44px rgba(97, 44, 28, 0.16);
-}
-.gallery-thumbs {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-content: center;
-    align-items: center;
-}
-.gallery-thumbs img {
-    width: 300px;
-    height: 300px;
-    object-fit: cover;
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
-}
-.gallery-thumbs img:hover {
-    transform: scale(1.05);
-    box-shadow: 0 16px 34px rgba(97, 44, 28, 0.16);
-    opacity: 0.95;
 }
 .photo-full img {
     width: 100%;
@@ -1357,27 +1482,28 @@ footer .logo img {
     .guest-line {
         font-size: 35px;
     }
+    #guestCardName {
+        font-size: 28px;
+        margin-top: 6px;
+    }
     .guest-sub {
         margin-top: 6px;
         font-size: 12px;
         letter-spacing: 0.8px;
     }
+    #guestCardGreeting {
+        font-size: 22px;
+        margin-top: -4px;
+    }
     .guest-seats {
         margin-top: 6px;
         font-size: 25px;
     }
-    .photo.section{
-        position: relative; /* Permite que .photo-text se posicione sobre la imagen */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh; /* Asegura que la sección ocupe toda la altura de la pantalla */
-        text-align: center;
-        box-sizing: border-box;
-        overflow: hidden; /* Evita que el contenido se desborde */
+    .photo-section {
+        height: 78vh;
     }
     .photo-text h1 {
-        margin-top: -435px;
+        margin-top: -330px;
         font-size: 42px;
         line-height: 1.05;
     }
@@ -1482,10 +1608,13 @@ footer .logo img {
         font-size: 18px;
     }
     .parents-names {
-        font-size: 36px;
+        font-size: 30px;
     }
     .event-section {
         padding: 34px 16px 20px;
+    }
+    .itinerary-section {
+        padding: 18px 16px 8px;
     }
     .event-card {
         padding: 24px 18px;
@@ -1493,6 +1622,46 @@ footer .logo img {
     }
     .event-titulo {
         font-size: 34px;
+    }
+    .rsvp-name-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .rsvp-passes-info {
+        width: 100%;
+        text-align: center;
+        font-size: 17px;
+    }
+    .timeline-center {
+        gap: 10px;
+    }
+    .timeline-center::before {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .timeline-block,
+    .timeline-block.left,
+    .timeline-block.right {
+        width: 50%;
+    }
+    .timeline-content {
+        width: min(100%, 160px);
+        text-align: center;
+    }
+    .icon-time {
+        justify-content: center;
+        gap: 6px;
+    }
+    .icon-time lord-icon {
+        width: 32px;
+        height: 32px;
+    }
+    .time,
+    .event {
+        font-size: 13px;
+    }
+    .itinerary-note {
+        font-size: 12px;
     }
     .event-time {
         font-size: 18px;
@@ -1648,12 +1817,8 @@ footer .logo img {
     }
     .gallery-main img {
         width: min(100%, 320px);
-        height: 420px;
+        height: auto;
         border-radius: 18px;
-    }
-    .gallery-thumbs {
-        gap: 10px;
-        justify-content: center;
     }
     .gallery-thumbs img {
         width: 88px;
@@ -1684,14 +1849,14 @@ footer .logo img {
 }
 @media (min-width: 768px) and (max-width: 1900px) {
     .photo-section{
-        height: 2000px;
+        height: 84vh;
     }
     .main-content {
         padding: 0;
         max-width: 100%; /* Ajusta el ancho para tablets */
     }
     .photo-text h1 {
-        margin-top: -800px;
+        margin-top: -580px;
         font-size: 135px;
     }
 
@@ -1735,16 +1900,11 @@ footer .logo img {
         font-size: 24px;
     }
     .parents-names {
-        font-size: 56px;
+        font-size: 46px;
     }
     .gallery-main img {
-        width: 700px; /* Ajusta el tamaño de las imágenes principales en la galería */
-        height: 750px;
-    }
-
-    .gallery-thumbs img {
-        width: 160px;
-        height: 200px;
+        width: min(100%, 700px);
+        height: auto;
     }
     .modal{
         width: 700px;
@@ -1775,6 +1935,9 @@ footer .logo img {
     .event-card {
         max-width: 680px;
         padding: 34px 24px;
+    }
+    .timeline-content {
+        width: min(100%, 240px);
     }
     .event-titulo {
         font-size: 56px;
