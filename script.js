@@ -186,8 +186,6 @@ document.addEventListener("DOMContentLoaded", function() {
         topFlipDigit.textContent = currentValue;
         bottomFlipDigit.textContent = nextValue;
         bottomDigit.textContent = nextValue;
-        flip.classList.remove('is-dropping');
-        void flip.offsetWidth;
         flip.classList.add('is-dropping');
 
         setTimeout(() => {
@@ -255,7 +253,16 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     if (mainPhoto) {
+        let galleryIsVisible = false;
+        const galleryObserver = new IntersectionObserver((entries) => {
+            galleryIsVisible = entries[0].isIntersecting;
+        }, { rootMargin: '200px 0px' });
+
+        galleryObserver.observe(mainPhoto);
+
         setInterval(function() {
+            if (!galleryIsVisible || document.hidden) return;
+
             currentSlide = (currentSlide + 1) % galleryImages.length;
             mainPhoto.style.opacity = '0.7';
 
