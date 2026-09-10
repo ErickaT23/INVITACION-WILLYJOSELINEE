@@ -1,93 +1,145 @@
-// Importar Firebase y Realtime Database
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
-import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-database.js";
+import { getDatabase, get, onValue, ref, runTransaction, set } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-database.js";
 
-// Configuración Firebase (reemplaza con la tuya)
 const firebaseConfig = {
-  apiKey: "AIzaSyAqOZQ5YFOdhL6dblHI5wIx10m6n4xt2Fg",
-  authDomain: "buenosdeseos-twodesign.firebaseapp.com",
-  databaseURL: "https://buenosdeseos-twodesign-default-rtdb.firebaseio.com",
-  projectId: "buenosdeseos-twodesign",
-  storageBucket: "buenosdeseos-twodesign.firebasestorage.app",
-  messagingSenderId: "577908051871",
-  appId: "1:577908051871:web:27fbd4e06b3d18da14b7aa"
+    apiKey: "AIzaSyAqOZQ5YFOdhL6dblHI5wIx10m6n4xt2Fg",
+    authDomain: "buenosdeseos-twodesign.firebaseapp.com",
+    databaseURL: "https://buenosdeseos-twodesign-default-rtdb.firebaseio.com",
+    projectId: "buenosdeseos-twodesign",
+    storageBucket: "buenosdeseos-twodesign.firebasestorage.app",
+    messagingSenderId: "577908051871",
+    appId: "1:577908051871:web:27fbd4e06b3d18da14b7aa"
 };
 
-// Inicializar Firebase
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
-const wishesPath = "buenos-deseos/wilson-joselinee-2027";
 
-console.log("✅ Firebase conectado correctamente!");
-
-// Función para enviar un buen deseo
-window.submitWish = function () {
-  const name = document.getElementById("wish-name").value.trim();
-  const message = document.getElementById("wish-message").value.trim();
-
-  if (name !== "" && message !== "") {
-    push(ref(db, wishesPath), {
-      nombre: name,
-      mensaje: message,
-      timestamp: new Date().toISOString()
-    })
-    .then(() => {
-      alert("¡Tu buen deseo ha sido enviado! 🌟");
-      document.getElementById("wish-name").value = "";
-      document.getElementById("wish-message").value = "";
-
-      // Ocultar formulario
-      document.getElementById('wish-form').classList.add('hidden');
-
-      // Mostrar lista de deseos y actualizarla
-      const wishesDiv = document.getElementById('wishes');
-      if (wishesDiv.classList.contains('hidden')) {
-          wishesDiv.classList.remove('hidden');
-      }
-      cargarDeseos();
-    })
-    .catch((error) => {
-      console.error("Error al guardar el deseo:", error);
-    });
-  } else {
-    alert("Por favor, completa ambos campos antes de enviar.");
-  }
-};
-
-// Función para cargar y mostrar los buenos deseos desde Firebase
-function cargarDeseos() {
-  const wishesDiv = document.getElementById('wishes');
-  const wishesRef = ref(db, wishesPath);
-
-  onValue(wishesRef, (snapshot) => {
-    const data = snapshot.val();
-    if (!data) {
-      wishesDiv.innerHTML = "<p>No hay deseos aún. Sé el primero 💌</p>";
-      return;
-    }
-    const arrayWishes = Object.values(data).sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
-
-    wishesDiv.innerHTML = arrayWishes.map(wish => `
-      <p><strong>${wish.nombre}:</strong> ${wish.mensaje}</p>
-    `).join('');
-  });
+function sanitizeKey(value) {
+    return (String(value || "").trim() || "default").replace(/[.#$\[\]/]/g, "_");
 }
 
-// Exponer cargarDeseos globalmente para usar desde HTML u otros scripts
-window.cargarDeseos = cargarDeseos;
+function resolveEventId(explicitEventId) {
+    const configured = window.config && window.config.event && window.config.event.defaultEventId;
+    return sanitizeKey(explicitEventId || configured || "wilson-joselinee-2027");
+}
 
-// Funciones para mostrar/ocultar formulario y lista
-window.toggleWishForm = function() {
-  const form = document.getElementById('wish-form');
-  form.classList.toggle('hidden');
+function eventPath(eventId, section) {
+    return `eventos/${resolveEventId(eventId)}/${section}`;
+}
+
+function snapshotToArray(snapshot) {
+    if (!snapshot.exists()) return [];
+    return Object.entries(snapshot.val() || {}).map(([key, value]) => ({
+        ...(value && typeof value === "object" ? value : {}),
+        _key: key
+    }));
+}
+
+function normalizeGuest(raw, fallbackId) {
+    const id = String(raw && raw.id || fallbackId || "").trim();
+    if (!id) return null;
+    return {
+        id,
+        nombre: String(raw && (raw.nombre || raw.name) || "Invitado").trim() || "Invitado",
+        pases: Math.max(1, Number(raw && (raw.pases || raw.passes)) || 1),
+        genero: String(raw && (raw.genero || raw.gender) || "mixto").trim() || "mixto",
+        activo: raw && typeof raw.activo !== "undefined" ? Boolean(raw.activo) : true
+    };
+}
+
+async function getInvitadoById(eventId, guestId) {
+    const snapshot = await get(ref(db, `${eventPath(eventId, "invitados")}/${sanitizeKey(guestId)}`));
+    if (!snapshot.exists()) return null;
+    return normalizeGuest(snapshot.val(), guestId);
+}
+
+async function saveInvitado(eventId, guest) {
+    const record = normalizeGuest(guest, guest && guest.id);
+    if (!record || !record.nombre) throw new Error("INVITADO_INVALIDO");
+    await set(ref(db, `${eventPath(eventId, "invitados")}/${sanitizeKey(record.id)}`), record);
+    return record;
+}
+
+async function deactivateInvitado(eventId, guest) {
+    return saveInvitado(eventId, { ...guest, activo: false });
+}
+
+async function seedEventData(eventId, guests) {
+    const resolvedEventId = resolveEventId(eventId);
+    const source = Array.isArray(guests) ? guests : [];
+    const records = source.map((guest, index) => normalizeGuest(guest, guest && guest.id || index + 1)).filter(Boolean);
+
+    await set(ref(db, eventPath(resolvedEventId, "config")), {
+        nombres: window.config && window.config.pareja && window.config.pareja.nombres || "Wilson & Joselinee",
+        fecha: window.config && window.config.pareja && window.config.pareja.fechaVisible || "16.01.2027",
+        actualizadoEn: Date.now()
+    });
+    await Promise.all(records.map(guest => saveInvitado(resolvedEventId, guest)));
+
+    return { ok: true, eventId: resolvedEventId, invitadosCreados: records.length };
+}
+
+async function saveConfirmation(eventId, payload) {
+    const guestId = String(payload && payload.id || "").trim();
+    if (!guestId) throw new Error("INVITADO_ID_REQUERIDO");
+
+    const record = {
+        id: guestId,
+        nombre: String(payload.nombre || "Invitado").trim() || "Invitado",
+        pasesAsignados: Math.max(1, Number(payload.pasesAsignados) || 1),
+        respuesta: payload.respuesta === "no" ? "no" : "si",
+        cantidadConfirmada: payload.respuesta === "no" ? 0 : Math.max(1, Number(payload.cantidadConfirmada) || 1),
+        confirmado: true,
+        fechaConfirmacion: Date.now()
+    };
+
+    const target = ref(db, `${eventPath(eventId, "rsvp")}/${sanitizeKey(guestId)}`);
+    const result = await runTransaction(target, current => {
+        if (current && current.confirmado) return;
+        return record;
+    }, { applyLocally: false });
+
+    if (!result.committed) {
+        const error = new Error("RSVP_ALREADY_CONFIRMED");
+        error.code = "RSVP_ALREADY_CONFIRMED";
+        throw error;
+    }
+    return result.snapshot.val();
+}
+
+function subscribeToInvitados(eventId, onChange, onError) {
+    return onValue(ref(db, eventPath(eventId, "invitados")), snapshot => {
+        const guests = snapshotToArray(snapshot)
+            .map(item => normalizeGuest(item, item._key))
+            .filter(Boolean);
+        onChange(guests);
+    }, onError);
+}
+
+function subscribeToConfirmations(eventId, onChange, onError) {
+    return onValue(ref(db, eventPath(eventId, "rsvp")), snapshot => {
+        onChange(snapshotToArray(snapshot).filter(item => item.id));
+    }, onError);
+}
+
+window.RSVPDatabase = {
+    resolveEventId,
+    getInvitadoById,
+    saveInvitado,
+    deactivateInvitado,
+    seedEventData,
+    saveConfirmation,
+    subscribeToInvitados,
+    subscribeToConfirmations
 };
 
-window.toggleWishes = function() {
-  const wishesDiv = document.getElementById('wishes');
-  wishesDiv.classList.toggle('hidden');
+export {
+    resolveEventId,
+    getInvitadoById,
+    saveInvitado,
+    deactivateInvitado,
+    seedEventData,
+    saveConfirmation,
+    subscribeToInvitados,
+    subscribeToConfirmations
 };
-
-// Cargar deseos automáticamente al cargar la página
-document.addEventListener('DOMContentLoaded', () => {
-  cargarDeseos();
-});

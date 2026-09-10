@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Administrador RSVP | Wilson & Joselinee</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/admin.css">
+</head>
+<body>
+    <section id="restricted" class="restricted hidden">
+        <p class="eyebrow">Panel privado</p>
+        <h1>Acceso restringido</h1>
+        <p>La clave de administrador no es válida.</p>
+    </section>
+
+    <main id="admin-app" class="panel-shell hidden">
+        <header class="panel-header">
+            <div>
+                <p class="eyebrow">Administrador RSVP</p>
+                <h1>Wilson & Joselinee</h1>
+                <p class="subtitle">Evento: <span id="event-name">wilson-joselinee-2027</span></p>
+            </div>
+            <div class="header-actions">
+                <a id="dashboard-link" class="button secondary" href="/dashboard">Ver dashboard</a>
+                <button id="copy-all" class="button btn-success" type="button">Copiar todos los links</button>
+                <button id="download-all-qrs" class="button btn-action" type="button">Descargar todos los QR</button>
+                <button id="export-admin" class="button btn-info" type="button">Exportar CSV</button>
+            </div>
+        </header>
+
+        <section class="metrics" aria-label="Resumen RSVP">
+            <article class="metric"><p class="metric-label">Invitaciones</p><p id="metric-total" class="metric-value">0</p></article>
+            <article class="metric"><p class="metric-label">Sí asistirán</p><p id="metric-yes" class="metric-value">0</p></article>
+            <article class="metric"><p class="metric-label">No asistirán</p><p id="metric-no" class="metric-value">0</p></article>
+            <article class="metric"><p class="metric-label">Pendientes</p><p id="metric-pending" class="metric-value">0</p></article>
+            <article class="metric"><p class="metric-label">Personas confirmadas</p><p id="metric-people" class="metric-value">0</p></article>
+        </section>
+
+        <section class="panel">
+            <div class="panel-top">
+                <h2>Invitados y confirmaciones</h2>
+                <button id="toggle-form" class="button btn-add" type="button">Agregar invitado</button>
+            </div>
+            <form id="guest-form" class="guest-form hidden">
+                <div class="field"><label for="guest-name">Nombre</label><input id="guest-name" maxlength="120" required></div>
+                <div class="field"><label for="guest-passes">Pases</label><input id="guest-passes" type="number" min="1" value="1" required></div>
+                <div class="field">
+                    <label for="guest-gender">Saludo</label>
+                    <select id="guest-gender"><option value="mixto">Queridos</option><option value="femenino">Querida</option><option value="masculino">Querido</option></select>
+                </div>
+                <button class="button" type="submit">Guardar</button>
+            </form>
+            <p id="admin-status" class="status-line">Conectando con Firebase...</p>
+            <div class="table-scroll">
+                <table>
+                    <thead><tr><th>ID</th><th>Nombre</th><th>Pases</th><th>Respuesta</th><th>Confirmados</th><th>Fecha</th><th>Acciones</th></tr></thead>
+                    <tbody id="admin-table"></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <section id="qr-modal" class="qr-modal hidden">
+        <div class="qr-card">
+            <h2 id="qr-name">Invitado</h2>
+            <div id="qr-container"></div>
+            <div class="header-actions">
+                <button id="download-qr" class="button" type="button">Descargar</button>
+                <button id="close-qr" class="button secondary" type="button">Cerrar</button>
+            </div>
+        </div>
+    </section>
+
+    <script src="/config.js"></script>
+    <script type="module" src="/database.js"></script>
+    <script src="/loads.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="/admin.js" defer></script>
+</body>
+</html>

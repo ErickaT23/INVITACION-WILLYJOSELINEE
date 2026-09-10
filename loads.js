@@ -1,91 +1,111 @@
 const guests = [
     { id: "1", name: "Andrea López", passes: 1, gender: "femenino" },
     { id: "2", name: "Carlos Méndez", passes: 1, gender: "masculino" },
-    { id: "3", name: "Fam. Herrera", passes: 3, gender: "mixto" },
-    { id: "4", name: "Sofía Ramírez", passes: 2, gender: "femenino" },
-    { id: "5", name: "Luis y Fernanda", passes: 2, gender: "mixto" },
-  ];  
+    { id: "3", name: "Familia Herrera", passes: 4, gender: "mixto" },
+    { id: "4", name: "Sofía Ramírez y acompañante", passes: 2, gender: "femenino" },
+    { id: "5", name: "Luis y Fernanda", passes: 2, gender: "mixto" }
+];
 
-  document.addEventListener("DOMContentLoaded", function () {
-    function getQueryParams() {
-      const params = {};
-      const queryString = window.location.search.substring(1);
-      if (!queryString) return params;
-  
-      const pairs = queryString.split("&");
-      for (const pair of pairs) {
-        const [key, value] = pair.split("=");
-        params[decodeURIComponent(key)] = decodeURIComponent((value || "").replace(/\+/g, " "));
-      }
-      return params;
+window.guests = guests;
+window.LocalGuestSeeds = {
+    ...(window.LocalGuestSeeds || {}),
+    "wilson-joselinee-2027": guests.reduce((directory, guest) => {
+        directory[guest.id] = {
+            id: guest.id,
+            nombre: guest.name,
+            pases: guest.passes,
+            genero: guest.gender,
+            activo: true
+        };
+        return directory;
+    }, {})
+};
+
+function waitForDatabase(timeout = 8000) {
+    return new Promise((resolve, reject) => {
+        const startedAt = Date.now();
+        const timer = window.setInterval(() => {
+            if (window.RSVPDatabase) {
+                window.clearInterval(timer);
+                resolve(window.RSVPDatabase);
+                return;
+            }
+            if (Date.now() - startedAt > timeout) {
+                window.clearInterval(timer);
+                reject(new Error("RSVPDatabase no disponible"));
+            }
+        }, 50);
+    });
+}
+
+window.seedWillJoselineeEvent = async function seedWillJoselineeEvent() {
+    const database = await waitForDatabase();
+    const eventId = window.config.event.defaultEventId;
+    const source = Object.values(window.LocalGuestSeeds[eventId] || {});
+    const result = await database.seedEventData(eventId, source);
+    console.log(`Evento ${result.eventId} creado con ${result.invitadosCreados} invitados.`);
+    return result;
+};
+
+function setCurrentGuest(rawGuest) {
+    if (!rawGuest || rawGuest.activo === false) {
+        window.currentGuest = null;
+        window.dispatchEvent(new CustomEvent("guest:updated", { detail: null }));
+        return;
     }
-  
-    const queryParams = getQueryParams();
-    const guestId = queryParams.id;
-  
-    const guest = guests.find(g => g.id === guestId);
-    const guestCardGreetingEl = document.getElementById("guestCardGreeting");
-    const guestCardNameEl = document.getElementById("guestCardName");
-    const guestCardSeatsEl = document.getElementById("guestCardSeats");
-    const guestCardSeatsTxtEl = document.getElementById("guestCardSeatsTxt");
-    const rsvpNombreEl = document.getElementById("rsvpNombre");
-    const rsvpPassesInfoEl = document.getElementById("rsvpPassesInfo");
-    const rsvpGuestsEl = document.getElementById("rsvpGuests");
-  
-    if (guest) {
-      // 👇 DISPONIBLE PARA script.js (WhatsApp, etc.)
-      window.currentGuest = guest;
-  
-      let invitText = "";
-      let guestCardGreeting = "Querido";
 
-      if (guest.passes === 1) {
-        invitText = guest.gender === "femenino"
-          ? `¡${guest.name}, está invitada!`
-          : `¡${guest.name}, está invitado!`;
-        guestCardGreeting = guest.gender === "femenino" ? "Querida" : "Querido";
-      } else {
-        if (guest.gender === "femenino") {
-          invitText = `¡${guest.name}, están invitadas!`;
-        } else {
-          invitText = `¡${guest.name}, están invitados!`;
-        }
-        guestCardGreeting = "Queridos";
-      }
-  
-      const guestNameEl = document.getElementById("guest-name");
-      const passesEl = document.getElementById("passes");
+    window.currentGuest = {
+        id: String(rawGuest.id),
+        name: String(rawGuest.name || rawGuest.nombre || "Invitado").trim() || "Invitado",
+        passes: Math.max(1, Number(rawGuest.passes || rawGuest.pases) || 1),
+        gender: String(rawGuest.gender || rawGuest.genero || "mixto")
+    };
 
-      if (guestNameEl) guestNameEl.textContent = invitText;
-      if (passesEl) passesEl.textContent = `${guest.passes} ${guest.passes === 1 ? "pase" : "pases"}`;
-      if (guestCardGreetingEl) guestCardGreetingEl.textContent = guestCardGreeting;
-      if (guestCardNameEl) guestCardNameEl.textContent = guest.name;
-      if (guestCardSeatsEl) guestCardSeatsEl.textContent = guest.passes;
-      if (guestCardSeatsTxtEl) guestCardSeatsTxtEl.textContent = guest.passes === 1 ? "lugar" : "lugares";
-      if (rsvpNombreEl) rsvpNombreEl.value = guest.name;
-      if (rsvpPassesInfoEl) rsvpPassesInfoEl.textContent = `${guest.passes} ${guest.passes === 1 ? "pase" : "pases"}`;
-      if (rsvpGuestsEl) {
-        rsvpGuestsEl.innerHTML = Array.from({ length: guest.passes }, (_, index) => {
-          const value = index + 1;
-          return `<option value="${value}">${value}</option>`;
+    const guest = window.currentGuest;
+    const greeting = guest.passes > 1
+        ? "Queridos"
+        : (guest.gender === "femenino" ? "Querida" : "Querido");
+    const greetingEl = document.getElementById("guestCardGreeting");
+    const nameEl = document.getElementById("guestCardName");
+    const rsvpNameEl = document.getElementById("rsvpNombre");
+    const passesInfoEl = document.getElementById("rsvpPassesInfo");
+    const guestsSelectEl = document.getElementById("rsvpGuests");
+
+    if (greetingEl) greetingEl.textContent = greeting;
+    if (nameEl) nameEl.textContent = guest.name;
+    if (rsvpNameEl) rsvpNameEl.value = guest.name;
+    if (passesInfoEl) passesInfoEl.textContent = `${guest.passes} ${guest.passes === 1 ? "pase" : "pases"}`;
+    if (guestsSelectEl) {
+        guestsSelectEl.innerHTML = Array.from({ length: guest.passes }, (_, index) => {
+            const value = index + 1;
+            return `<option value="${value}">${value}</option>`;
         }).join("");
-      }
-    } else {
-      window.currentGuest = null;
-
-      const guestNameEl = document.getElementById("guest-name");
-      if (guestNameEl) guestNameEl.textContent = "¡Invitado no encontrado!";
-
-      if (guestCardGreetingEl) guestCardGreetingEl.textContent = "Querido";
-      if (guestCardNameEl) guestCardNameEl.textContent = "Invitado especial";
-      if (guestCardSeatsEl) guestCardSeatsEl.textContent = "1";
-      if (guestCardSeatsTxtEl) guestCardSeatsTxtEl.textContent = "lugar";
-      if (rsvpNombreEl) rsvpNombreEl.value = "Invitado especial";
-      if (rsvpPassesInfoEl) rsvpPassesInfoEl.textContent = "1 pase";
-      if (rsvpGuestsEl) rsvpGuestsEl.innerHTML = '<option value="1">1</option>';
-
-      const section = document.querySelector(".invitation-info-section");
-      if (section) section.style.display = "none";
     }
-  });
-  
+
+    window.dispatchEvent(new CustomEvent("guest:updated", { detail: guest }));
+}
+
+document.addEventListener("DOMContentLoaded", async () => {
+    const guestId = new URLSearchParams(window.location.search).get("id");
+    const localGuest = guests.find(guest => guest.id === guestId);
+
+    if (localGuest) setCurrentGuest(localGuest);
+    if (!guestId) {
+        setCurrentGuest(null);
+        return;
+    }
+
+    try {
+        const database = await waitForDatabase();
+        const eventId = window.config.event.defaultEventId;
+        const remoteGuest = await database.getInvitadoById(eventId, guestId);
+        if (remoteGuest) {
+            setCurrentGuest(remoteGuest);
+        } else if (!localGuest) {
+            setCurrentGuest(null);
+        }
+    } catch (error) {
+        console.warn("No se pudo consultar el invitado en Firebase:", error);
+        if (!localGuest) setCurrentGuest(null);
+    }
+});

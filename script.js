@@ -24,7 +24,6 @@ document.addEventListener("DOMContentLoaded", function() {
     var seal = document.getElementById("seal");
     let currentSlide = 0;   
     let isOpeningEnvelope = false;
-    const wishes = [];
 
     // Función para abrir el sobre y reproducir la música
     function openEnvelopeAndPlayMusic() {
@@ -123,6 +122,14 @@ document.addEventListener("DOMContentLoaded", function() {
 
     let rsvpAnswer = null;
 
+    function setRsvpMessage(message, isError) {
+        if (!msgRsvp) return;
+        msgRsvp.textContent = message;
+        msgRsvp.classList.toggle("error", Boolean(isError));
+        msgRsvp.classList.toggle("ok", !isError);
+        msgRsvp.style.display = "block";
+    }
+
     function setRsvpChoice(answer) {
         rsvpAnswer = answer;
         if (btnRsvpSi) btnRsvpSi.classList.toggle("is-active", answer === "si");
@@ -144,29 +151,63 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     if (btnConfirmarRsvp) {
-        btnConfirmarRsvp.addEventListener("click", function() {
-            const nombre = rsvpNombre && rsvpNombre.value ? rsvpNombre.value : "Invitado";
-
+        btnConfirmarRsvp.addEventListener("click", async function() {
             if (!rsvpAnswer) {
-                if (msgRsvp) {
-                    msgRsvp.textContent = "Selecciona una opción para continuar.";
-                    msgRsvp.style.display = "block";
-                }
+                setRsvpMessage("Selecciona una opción para continuar.", true);
                 return;
             }
 
-            const phone = "50247657152";
-            let texto = "";
-
-            if (rsvpAnswer === "si") {
-                const invitados = rsvpGuests && rsvpGuests.value ? rsvpGuests.value : "1";
-                texto = `Hola, soy ${nombre} y confirmo mi asistencia a la boda de Wilson & Joselinee. Asistiremos ${invitados} ${invitados === "1" ? "persona" : "personas"}.`;
-            } else {
-                texto = `Hola, soy ${nombre} y lamentablemente no podré acompañarlos en la boda de Wilson & Joselinee.`;
+            const guest = window.currentGuest;
+            if (!guest || !guest.id) {
+                setRsvpMessage("Esta invitación no tiene un invitado válido. Abre el enlace personal que recibiste.", true);
+                return;
             }
 
-            const url = `https://wa.me/${phone}?text=${encodeURIComponent(texto)}`;
-            window.location.href = url;
+            const database = window.RSVPDatabase;
+            if (!database || typeof database.saveConfirmation !== "function") {
+                setRsvpMessage("No pudimos conectar con el sistema. Intenta nuevamente.", true);
+                return;
+            }
+
+            const confirmedGuests = rsvpAnswer === "si"
+                ? Math.min(guest.passes, Math.max(1, Number(rsvpGuests && rsvpGuests.value) || 1))
+                : 0;
+
+            btnConfirmarRsvp.disabled = true;
+            setRsvpMessage("Guardando tu respuesta...", false);
+
+            try {
+                await database.saveConfirmation(window.config.event.defaultEventId, {
+                    id: guest.id,
+                    nombre: guest.name,
+                    pasesAsignados: guest.passes,
+                    respuesta: rsvpAnswer,
+                    cantidadConfirmada: confirmedGuests
+                });
+
+                btnRsvpSi.disabled = true;
+                btnRsvpNo.disabled = true;
+                setRsvpMessage("Gracias, tu respuesta quedó registrada.", false);
+
+                const phone = "";
+                const texto = rsvpAnswer === "si"
+                    ? `Hola, soy ${guest.name} y confirmo mi asistencia a la boda de Wilson & Joselinee. Asistiremos ${confirmedGuests} ${confirmedGuests === 1 ? "persona" : "personas"}.`
+                    : `Hola, soy ${guest.name} y lamentablemente no podré acompañarlos en la boda de Wilson & Joselinee.`;
+                if (phone) {
+                    window.setTimeout(function() {
+                        window.location.href = `https://wa.me/${phone}?text=${encodeURIComponent(texto)}`;
+                    }, 700);
+                }
+            } catch (error) {
+                console.error("Error al guardar RSVP:", error);
+                btnConfirmarRsvp.disabled = false;
+                setRsvpMessage(
+                    error && error.code === "RSVP_ALREADY_CONFIRMED"
+                        ? "Esta invitación ya fue confirmada anteriormente."
+                        : "No pudimos guardar tu respuesta. Verifica tu conexión e intenta nuevamente.",
+                    true
+                );
+            }
         });
     }
 
@@ -282,24 +323,6 @@ document.addEventListener("DOMContentLoaded", function() {
         title.classList.add("visible");
     }
 
-    // Buenos deseos
-    function displayWishes() {
-        const wishesDiv = document.getElementById('wishes');
-        wishesDiv.innerHTML = wishes.map(wish => `<p><strong>${wish.name}:</strong> ${wish.message}</p>`).join('');
-    }
-
-    function toggleWishForm() {
-        document.getElementById('wish-form').classList.toggle('hidden');
-    }
-
-    function toggleWishes() {
-        const wishesDiv = document.getElementById('wishes');
-        wishesDiv.classList.toggle('hidden');
-      }      
-
-      window.toggleWishes = toggleWishes;
-
-
     window.changePhoto = function(element) {
         if (!mainPhoto || !mainPhotoModal) return;
 
@@ -333,9 +356,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }, 280);
     }
 
-    window.submitWish = submitWish;
-    window.toggleWishForm = toggleWishForm;
-    window.toggleWishes = toggleWishes;
 });
 
 window.confirmarWhatsApp = function () {};
