@@ -17,14 +17,24 @@ body {
     padding: 0;
     font-family: 'Cormorant Garamond', serif;
     font-style: oblique;
-    background: linear-gradient(rgba(247, 244, 239, 0.4), rgba(247, 244, 239, 0.4)), url('/images/textura.png') center / cover no-repeat fixed;
+    background: #f7f4ef;
     overflow-x: hidden;
     justify-content: center;
     width: 100%;
     height: 100%;
     position: relative;
+    isolation: isolate;
     min-height: 100vh;
     color: var(--color-terracotta);
+}
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(rgba(247, 244, 239, 0.4), rgba(247, 244, 239, 0.4)), url('/images/textura.png') center / cover no-repeat;
+    pointer-events: none;
+    transform: translateZ(0);
 }
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Great Vibes', serif;
@@ -112,21 +122,6 @@ html, body {
     padding: 10px 20px 70px;
     background: transparent;
     text-align: center;
-}
-.historia-section,
-.parents-section,
-.countdown-section,
-.event-section,
-.dress,
-.gifts,
-.nochild-section,
-.gallery-section,
-.media-share-section,
-.rsvp,
-.banner-section,
- footer {
-    content-visibility: auto;
-    contain-intrinsic-size: 800px;
 }
 .parents-grid {
     display: flex;
@@ -676,6 +671,7 @@ html, body {
 .fade-in-element.visible {
     opacity: 1;
     transform: translateY(0);
+    will-change: auto;
 }
 
 .title {
@@ -1503,8 +1499,8 @@ footer .logo img {
         height: 78vh;
     }
     .photo-text h1 {
-        margin-top: -330px;
-        font-size: 42px;
+        margin-top: -200px;
+        font-size: 40px;
         line-height: 1.05;
     }
     .photo-text h2 {

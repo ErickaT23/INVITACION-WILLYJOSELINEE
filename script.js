@@ -13,12 +13,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
     var modal = document.getElementById('photo-modal');
     const galleryImages = [
-        "/images/G1.jpg",
-        "/images/G2.jpg",
-        "/images/G3.jpg",
-        "/images/G4.jpg",
-        "/images/G5.jpg",
-        "/images/G6.jpg"
+        "/images/GA1.webp",
+        "/images/GA2.webp",
+        "/images/GA3.webp",
+        "/images/GA4.webp",
+        "/images/GA5.webp",
+        "/images/GA6.webp",
+        "/images/GA7.webp"
     ];
     var seal = document.getElementById("seal");
     let currentSlide = 0;   
