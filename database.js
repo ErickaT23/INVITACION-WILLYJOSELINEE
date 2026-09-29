@@ -74,6 +74,7 @@ async function seedEventData(eventId, guests) {
         fecha: window.config && window.config.pareja && window.config.pareja.fechaVisible || "16.01.2027",
         actualizadoEn: Date.now()
     });
+    await set(ref(db, eventPath(resolvedEventId, "invitados")), {});
     await Promise.all(records.map(guest => saveInvitado(resolvedEventId, guest)));
 
     return { ok: true, eventId: resolvedEventId, invitadosCreados: records.length };
