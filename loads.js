@@ -177,7 +177,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     const guestId = new URLSearchParams(window.location.search).get("id");
     const localGuest = guests.find(guest => guest.id === guestId);
 
-    if (localGuest) setCurrentGuest(localGuest);
     if (!guestId) {
         setCurrentGuest(null);
         return;
@@ -190,11 +189,14 @@ document.addEventListener("DOMContentLoaded", async () => {
         // Firebase contains the latest changes made from the admin panel.
         if (remoteGuest) {
             setCurrentGuest(remoteGuest);
-        } else if (!localGuest) {
+        } else if (localGuest) {
+            setCurrentGuest(localGuest);
+        } else {
             setCurrentGuest(null);
         }
     } catch (error) {
         console.warn("No se pudo consultar el invitado en Firebase:", error);
-        if (!localGuest) setCurrentGuest(null);
+        if (localGuest) setCurrentGuest(localGuest);
+        else setCurrentGuest(null);
     }
 });
