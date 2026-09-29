@@ -154,7 +154,12 @@ function setCurrentGuest(rawGuest) {
         "73": "Queridos",
         "74": "Queridas",
         "77": "Querida",
-        "80": "Queridas"
+        "80": "Queridas",
+        "81": "Querida",
+        "83": "Queridas",
+        "84": "Querida",
+        "87": "Querida",
+        "89": "Querida"
     };
     const greeting = greetingById[guest.id] || (isFallbackGuest
         ? "Invitado"
