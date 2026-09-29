@@ -81,14 +81,15 @@ const guests = [
     { id: "80", name: "Silvia y Andrea Castellanos", passes: 2, gender: "femenino" },
     { id: "81", name: "Vero Bosarreyes", passes: 1, gender: "femenino" },
     { id: "82", name: "Victor Cundini", passes: 1, gender: "mixto" },
-    { id: "83", name: "Yeimy y Celeste", passes: 2, gender: "mixto" },
-    { id: "84", name: "Marleny Chicojay", passes: 1, gender: "mixto" },
-    { id: "85", name: "Leornardo Estrada", passes: 2, gender: "mixto" },
+    { id: "83", name: "Yeimy y Celeste", passes: 2, gender: "femenino" },
+    { id: "84", name: "Marleny Chicojay", passes: 1, gender: "femenino" },
+    { id: "85", name: "Leonardo Estrada", passes: 1, gender: "masculino" },
     { id: "86", name: "Segio y Lupe", passes: 2, gender: "mixto" },
-    { id: "87", name: "Lesbia Vega", passes: 1, gender: "mixto" },
+    { id: "87", name: "Lesbia Vega", passes: 1, gender: "femenino" },
     { id: "88", name: "Fam. Leonardo Estrada", passes: 2, gender: "mixto" },
-    { id: "89", name: "Fatima Fuentes", passes: 1, gender: "mixto" },
-    { id: "90", name: "Daniel y Geraldine", passes: 2, gender: "mixto" }
+    { id: "89", name: "Fátima Fuentes", passes: 1, gender: "femenino" },
+    { id: "90", name: "Daniel y Geraldine", passes: 2, gender: "mixto" },
+    { id: "91", name: "Jose Chic", passes: 1, gender: "masculino" }
 ];
 
 window.guests = guests;
