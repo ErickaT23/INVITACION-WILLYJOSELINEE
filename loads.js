@@ -150,13 +150,19 @@ function setCurrentGuest(rawGuest) {
     const guest = window.currentGuest;
     const isFallbackGuest = guest.name === "Invitado";
     const isFamily = /^fam(?:ilia)?\.?\b/i.test(guest.name.trim());
-    const greeting = isFallbackGuest
+    const greetingById = {
+        "73": "Queridos",
+        "74": "Queridas",
+        "77": "Querida",
+        "80": "Queridas"
+    };
+    const greeting = greetingById[guest.id] || (isFallbackGuest
         ? "Invitado"
         : isFamily
         ? "Querida"
         : (guest.passes > 1
             ? (guest.gender.toLowerCase() === "femenino" ? "Queridas" : "Queridos")
-            : (guest.gender.toLowerCase() === "femenino" ? "Querida" : "Querido"));
+            : (guest.gender.toLowerCase() === "femenino" ? "Querida" : "Querido")));
     const greetingEl = document.getElementById("guestCardGreeting");
     const nameEl = document.getElementById("guestCardName");
     const rsvpNameEl = document.getElementById("rsvpNombre");
