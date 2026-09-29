@@ -95,7 +95,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         const database = await waitForDatabase();
         const eventId = window.config.event.defaultEventId;
         const remoteGuest = await database.getInvitadoById(eventId, guestId);
-        if (remoteGuest) {
+        // The bundled guest list is authoritative for configured invitations.
+        // Do not let stale Firebase records overwrite the current ID data.
+        if (remoteGuest && !localGuest) {
             setCurrentGuest(remoteGuest);
         } else if (!localGuest) {
             setCurrentGuest(null);
