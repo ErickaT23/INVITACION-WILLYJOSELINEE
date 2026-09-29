@@ -147,9 +147,12 @@ function setCurrentGuest(rawGuest) {
     };
 
     const guest = window.currentGuest;
-    const greeting = guest.passes > 1
-        ? "Queridos"
-        : (guest.gender === "femenino" ? "Querida" : "Querido");
+    const isFamily = /^fam(?:ilia)?\.?\b/i.test(guest.name.trim());
+    const greeting = isFamily
+        ? "Querida"
+        : (guest.passes > 1
+            ? "Queridos"
+            : (guest.gender.toLowerCase() === "femenino" ? "Querida" : "Querido"));
     const greetingEl = document.getElementById("guestCardGreeting");
     const nameEl = document.getElementById("guestCardName");
     const rsvpNameEl = document.getElementById("rsvpNombre");
