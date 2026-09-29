@@ -147,8 +147,11 @@ function setCurrentGuest(rawGuest) {
     };
 
     const guest = window.currentGuest;
+    const isFallbackGuest = guest.name === "Invitado";
     const isFamily = /^fam(?:ilia)?\.?\b/i.test(guest.name.trim());
-    const greeting = isFamily
+    const greeting = isFallbackGuest
+        ? "Invitado"
+        : isFamily
         ? "Querida"
         : (guest.passes > 1
             ? "Queridos"
@@ -160,7 +163,7 @@ function setCurrentGuest(rawGuest) {
     const guestsSelectEl = document.getElementById("rsvpGuests");
 
     if (greetingEl) greetingEl.textContent = greeting;
-    if (nameEl) nameEl.textContent = guest.name;
+    if (nameEl) nameEl.textContent = isFallbackGuest ? "" : guest.name;
     if (rsvpNameEl) rsvpNameEl.value = guest.name;
     if (passesInfoEl) passesInfoEl.textContent = `${guest.passes} ${guest.passes === 1 ? "pase" : "pases"}`;
     if (guestsSelectEl) {
@@ -192,11 +195,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         } else if (localGuest) {
             setCurrentGuest(localGuest);
         } else {
-            setCurrentGuest(null);
+            setCurrentGuest({ id: guestId, name: "Invitado", passes: 1, gender: "mixto" });
         }
     } catch (error) {
         console.warn("No se pudo consultar el invitado en Firebase:", error);
         if (localGuest) setCurrentGuest(localGuest);
-        else setCurrentGuest(null);
+        else setCurrentGuest({ id: guestId, name: "Invitado", passes: 1, gender: "mixto" });
     }
 });
