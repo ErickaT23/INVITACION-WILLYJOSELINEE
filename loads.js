@@ -72,14 +72,14 @@ const guests = [
     { id: "71", name: "Nelson y Sheyla", passes: 2, gender: "mixto" },
     { id: "72", name: "Noé Rojas", passes: 1, gender: "mixto" },
     { id: "73", name: "Nohemí y Gerardo", passes: 2, gender: "mixto" },
-    { id: "74", name: "Paty Reyes e hijas", passes: 3, gender: "mixto" },
+    { id: "74", name: "Paty Reyes e hijas", passes: 3, gender: "femenino" },
     { id: "75", name: "Raquel Vega e hijos", passes: 6, gender: "mixto" },
     { id: "76", name: "Reginaldo y Libny", passes: 2, gender: "mixto" },
     { id: "77", name: "Ruth Vásquez", passes: 1, gender: "femenino" },
     { id: "78", name: "Samuel Zapeta", passes: 1, gender: "mixto" },
     { id: "79", name: "Sergio y Lupe", passes: 2, gender: "mixto" },
-    { id: "80", name: "Silvia y Andrea Castellanos", passes: 2, gender: "mixto" },
-    { id: "81", name: "Vero Bosarreyes", passes: 1, gender: "mixto" },
+    { id: "80", name: "Silvia y Andrea Castellanos", passes: 2, gender: "femenino" },
+    { id: "81", name: "Vero Bosarreyes", passes: 1, gender: "femenino" },
     { id: "82", name: "Victor Cundini", passes: 1, gender: "mixto" },
     { id: "83", name: "Yeimy y Celeste", passes: 2, gender: "mixto" },
     { id: "84", name: "Marleny Chicojay", passes: 1, gender: "mixto" },
@@ -154,7 +154,7 @@ function setCurrentGuest(rawGuest) {
         : isFamily
         ? "Querida"
         : (guest.passes > 1
-            ? "Queridos"
+            ? (guest.gender.toLowerCase() === "femenino" ? "Queridas" : "Queridos")
             : (guest.gender.toLowerCase() === "femenino" ? "Querida" : "Querido"));
     const greetingEl = document.getElementById("guestCardGreeting");
     const nameEl = document.getElementById("guestCardName");
