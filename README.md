@@ -9,7 +9,9 @@ El evento usa la ruta `eventos/wilson-joselinee-2027` de Firebase Realtime Datab
 - Administrador: `/admin.html?key=twodesign123`
 - Dashboard: `/dashboard`
 
-Después de publicar el sitio, el evento y los invitados definidos en `loads.js` se crean una vez desde la consola del navegador con:
+El panel administrador sincroniza automáticamente con Firebase el evento y los invitados definidos en `loads.js` cada vez que se abre. Ya no es necesario ejecutar comandos manualmente.
+
+Como alternativa, la sincronización manual sigue disponible desde la consola del navegador:
 
 ```js
 await window.seedWillJoselineeEvent()

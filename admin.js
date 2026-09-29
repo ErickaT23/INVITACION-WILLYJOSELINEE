@@ -272,7 +272,12 @@
 
         try {
             const database = await waitForDatabase();
-            localGuests().forEach(guest => state.guests.set(String(guest.id), guest));
+            // La lista versionada en loads.js es la fuente de verdad del evento.
+            // Se sincroniza al abrir el admin para no depender de la consola.
+            const sourceGuests = localGuests();
+            await database.seedEventData(eventId, sourceGuests);
+            sourceGuests.forEach(guest => state.guests.set(String(guest.id), guest));
+            setStatus(`Lista sincronizada automáticamente. ${sourceGuests.length} invitados.`);
             render(database);
 
             database.subscribeToInvitados(eventId, remoteGuests => {
